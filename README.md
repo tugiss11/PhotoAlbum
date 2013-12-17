@@ -40,7 +40,9 @@ Ordering albums
 ---------------
 
 We also plan to implement the ordering function, but it has lower priority than other functions. Ordering function makes it possible for user to place an order for printed album and then pay the order. Payment requests would be sent to external service provided by our university that simulates payments. Basically, ordering an album will send a HTTP POST request to payment service. Orders need attributes that are order id, seller id, amount of payment, resulting url and checksum. There are three resulting urls that are called in three different cases. In the case one, user made a successful payment, in the case two, a payment failed, and in the third case, user cancelled a payment. Seller id is used to generate a secret key for the payment service. Secret key is then used with the payment id, amount and seller id to calculate an MD5-hash of the checksum. The payment is successful when the checksums match.
+
 3rd party login
+---------------
 
 The service will allow user to login with Facebook. Facebook provides OAuth authentication method for web services. We could write our own system to handle the authentication process, but it is somewhat complicated. Instead we will use “django-all-access” application for implementing this feature. All-access provides generic support for OAuth 1 and 2, but we are going to only use it for Facebook. Adding the support for Facebook login using all-access should be quite straightforward as All-acces uses Django’s standard User objects. After logging in with All-acces, handling the user’s status shouldn’t differ from using the default username + password login method.
 
