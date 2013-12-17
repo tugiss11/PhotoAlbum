@@ -11,14 +11,14 @@ Basic functionalities
 
 Our plan is to keep the system simple, while still providing good functionality. This means we will have only quite few views and database models. Our views will include a login view, list of albums view, album edit view and album view. These view should allow us to implement all the features. Our plan is to minimize the amount of completely new page loads as the user makes changes to the album, they will be updated dynamically using AJAX. In the list of albums view the user will be able to add and remove albums.
 
-![alt text](https://github.com/ )
+![alt text](http://i.imgur.com/TueWnlD.png)
 
 Rudimentary idea of the album list page
 
 
 The user will be able to choose a premade layout for every album page. These pages will follow a standardized structure and the actual layout is defined in css. Practically there will probably be container div-elements for pictures with id’s such as “img1”, “img2” and so forth. In the album edit view user will be able to add and remove pages, change page layout and set the link and caption for images.
 
-![alt text](https://github.com/ )
+![alt text](http://i.imgur.com/my6xC95.png)
 
 Album editing page
 
