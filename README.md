@@ -34,7 +34,7 @@ Our plan is to use the user authentication system provided by Django. Django aut
 Public link to photo albums
 ---------------------------
 
-Users have possibility to link their albums to their friends. Preventing people from guessing the album ids and traversing through them all, we plan to generate external ids that are random 8 character fields. The resulting link would then be, for example HOST/show_album?id=k8h6uu9lo These ids are stored in the database. It is secure to share these links, because the page will always check if the user is authenticated or not and then user has access on functionalities based on that. Other alternative could be having dynamic links that hide the real path to the album and unauthorized users could access albums only through that way but we think it is not necessary to have an approach like that.
+Users have possibility to link their albums to their friends. Preventing people from guessing the album ids and traversing through them all, we plan to generate external ids that are random 8 character fields. The resulting link would then be, for example HOST/show_album?id=k8h6uu9lo. These ids are stored in the database. It is secure to share these links, because the page will always check if the user is authenticated or not and then user has access on functionalities based on that. Other alternative could be having dynamic links that hide the real path to the album and unauthorized users could access albums only through that way but we think it is not necessary to have an approach like that.
 
 Ordering albums
 ---------------
