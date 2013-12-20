@@ -16,7 +16,7 @@ Our plan is to keep the system simple, while still providing good functionality.
 Rudimentary idea of the album list page
 
 
-The user will be able to choose a premade layout for every album page. These pages will follow a standardized structure and the actual layout is defined in css. Practically there will probably be container div-elements for pictures with id’s such as “img1”, “img2” and so forth. In the album edit view user will be able to add and remove pages, change page layout and set the link and caption for images.
+The user will be able to choose a premade layout for every album page. These pages will follow a standardized structure and the actual layout is defined in css. Practically there will probably be container div-elements for pictures with id’s such as “img1”, “img2” and so forth. In the album edit view user will be able to add and remove pages, change page layout and set the link and caption for images. Album editing will be communicated to server with http POST requests that contain information on what was edited.
 
 ![alt text](http://i.imgur.com/my6xC95.png)
 
