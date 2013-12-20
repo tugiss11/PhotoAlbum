@@ -47,3 +47,18 @@ We also plan to implement the ordering function, but it has lower priority than 
 The service will allow user to login with Facebook. Facebook provides OAuth authentication method for web services. We could write our own system to handle the authentication process, but it is somewhat complicated. Instead we will use “django-all-access” application for implementing this feature. All-access provides generic support for OAuth 1 and 2, but we are going to only use it for Facebook. Adding the support for Facebook login using all-access should be quite straightforward as All-acces uses Django’s standard User objects. After logging in with All-acces, handling the user’s status shouldn’t differ from using the default username + password login method.
 
 Django-all-access can be downloaded from https://github.com/mlavin/django-all-accesss. 
+
+Share albums
+------------
+
+In order to keep the homepage clear, so we planed to add the share button to the picture page, the visitor could justclick the demand share logo of specifical site then the page will redirect to the related site and the vistor could also add some description of their own and then share to their friends, the share button will at least include Facebook, twitter, using the related site’s share code. The share button will add to the picture page. As for the share ways, the above way is the basic way to share picture and we try to add some more share ways to share picture, and we try to add some more share ways like URL sharing. We will consider the album share as the development of the layout of this site.
+
+Integrate with an image service API
+-----------------------------------
+
+We want get to the pictures from Flickr (http://www.flickr.com/services/api/) and display them outside of Flickr, so we will through the Flickr API, the images will show up in API requests, also in order to display the pictures what we want, we will get dynamic content and display photos via tags or user ID or other interesting ways.
+
+Use of Ajax and dynamic UI
+--------------------------
+
+The most usage of Ajax is like change album pages or remove the dislike album without refresh the page, meanwhile, we will add the like/dislike function button, meanwhile, we could also zoom in the pictures in the album also without opening a new page and the visitor could just click left or right arrows to change the pictures and click the closed sign to close the picture. Last, in order to enhance the personalization we will try to add the function that will allow the visitors to drag the thumb of the album and make the sequences in their own ways
