@@ -11,16 +11,22 @@ def createAlbum(title, owner = None):
 class Album(models.Model):
     title = models.CharField(max_length = 256)
     #owner = TODO
-    unique_url = models.CharField(max_length = 8, unique = True, default=lambda:str(uuid.uuid4()))
+    album_id = models.CharField(max_length = 8, unique = True, default=lambda:str(uuid.uuid4()))
 
     def addPage(self, layout):
-        page = AlbumPage(album = self, layout = layout, idx = len(self.pages.all()))
+        page = AlbumPage(album = self, layout = layout, idx = len(self.pages.all()) + 1)
         page.save()
         for i in xrange(10):
             page.addImage()
         page.save()
 
         return page # Maybe someone is interested in this
+
+    def fixPageNumbers(self):
+        i = 1
+        for page in self.pages.all().order_by("idx"):
+            page.idx = i
+            i += 1
 
 class AlbumPage(models.Model):
     idx = models.IntegerField()

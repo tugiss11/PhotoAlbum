@@ -1,0 +1,6 @@
+<!-- This is bad html. If you see this, make it better! -->
+{% for album in albums %}
+    <h2><a href="album/{{ album.album_id }}">{{ album.title }}</a></h2>
+    <p>pages: {{ album.page_count }}</p>
+    <p>remove</p>
+{% endfor %}
