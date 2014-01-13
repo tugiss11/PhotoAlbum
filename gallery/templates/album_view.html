@@ -2,6 +2,15 @@
 
 <h1>{{ album.title }}</h1>
 <h2>Page {{ page.idx }}</h2>
+
+<h2>Add page</h2>
+<form action="/modify/" method="post">{% csrf_token %}
+{{ add_page_form.as_p }}
+<input type="hidden" value="{{ album.album_id }}" name="album_id" />
+<input type="hidden" value="add_page" name="action" />
+<input type="submit" value="Add" />
+</form>
+
 {% for image in page.images.all %}
     <div class="image_container" image_id="{{ image.image_id }}">
         <img src={{image.url}}>

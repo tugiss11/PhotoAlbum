@@ -20,23 +20,30 @@ def mainView(request):
     data["page_count"] = len(AlbumPage.objects.all())
     data["image_count"] = len(AlbumImage.objects.all())
     data["album_count"] = len(Album.objects.all())
+
+    data["new_album_form"] = modelform_factory(Album,
+                                               fields=["title"])
     return render_to_response('main.html', data, context_instance=RequestContext(request))
 
 def albumView(request, album_id, page = 1):
-    print "a w"
     data = {}
     data["image_url_form"] = modelform_factory(AlbumImage,
                                                fields=["url"])
+    data["add_page_form"] = modelform_factory(AlbumPage,
+                                              fields=["layout"])
     album = get_object_or_404(Album, album_id = album_id)
     data["album"] = album
-    data["page"] = get_object_or_404(AlbumPage, album = album, idx = page)
+    try:
+        data["page"] = AlbumPage.objects.get(album = album, idx = page)
+    except:
+        pass
     return render_to_response("album_view.html", data, context_instance=RequestContext(request))
 
 def modify(request):
     # TODO: Check login
     q = None
     if request.method == 'GET':
-        q = request.GET # This should be removed in future
+        q = request.GET
     elif request.method == 'POST':
         q = request.POST 
 
