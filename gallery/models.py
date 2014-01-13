@@ -29,10 +29,15 @@ class Album(models.Model):
             i += 1
             page.save()
 
+    def delete(self, *args, **kwargs):
+        AlbumPage.objects.filter(album = self).delete()
+        super(Album, self).delete(*args, **kwargs)
+
 class AlbumPage(models.Model):
     idx = models.IntegerField()
     album = models.ForeignKey(Album, related_name = "pages")
     layout = models.CharField(max_length = NAME_DB_MAX_LENGTH, choices = PAGE_LAYOUTS, default = PAGE_LAYOUTS[0])
+    page_id = models.CharField(max_length = 8, unique = True, default=lambda:str(uuid.uuid4()))
 
     def addImage(self):
         image = AlbumImage(page = self, idx = len(self.images.all()))
@@ -40,8 +45,13 @@ class AlbumPage(models.Model):
 
         return image # Maybe someone is interested in this
 
+    def delete(self, *args, **kwargs):
+        AlbumPage.objects.filter(page = self).delete()
+        super(AlbumPage, self).delete(*args, **kwargs)
+
 class AlbumImage(models.Model):
     idx = models.IntegerField()
     page = models.ForeignKey(AlbumPage, related_name = "images")
     url = models.URLField(default = "")
     caption = models.TextField(default = "")
+    image_id = models.CharField(max_length = 8, unique = True, default=lambda:str(uuid.uuid4()))

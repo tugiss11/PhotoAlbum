@@ -13,6 +13,9 @@ def mainView(request):
         albums.append(a)
 
     data["albums"] = albums
+    data["page_count"] = len(AlbumPage.objects.all())
+    data["image_count"] = len(AlbumImage.objects.all())
+    data["album_count"] = len(Album.objects.all())
     return render_to_response('main.html', data)
 
 def albumView(request, album_id, page = 1):
@@ -73,6 +76,5 @@ def modify(request):
                 return albumView(request, q["album_id"])
             elif request.method == "POST":
                 return # What to return?
-
 
     raise Http404
