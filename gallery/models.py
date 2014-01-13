@@ -11,7 +11,7 @@ def createAlbum(title, owner = None):
 class Album(models.Model):
     title = models.CharField(max_length = 256)
     #owner = TODO
-    album_id = models.CharField(max_length = 8, unique = True, default=lambda:str(uuid.uuid4()))
+    album_id = models.CharField(max_length = 36, unique = True, default=lambda:str(uuid.uuid4()))
 
     def addPage(self, layout):
         page = AlbumPage(album = self, layout = layout, idx = len(self.pages.all()) + 1)
@@ -37,7 +37,7 @@ class AlbumPage(models.Model):
     idx = models.IntegerField()
     album = models.ForeignKey(Album, related_name = "pages")
     layout = models.CharField(max_length = NAME_DB_MAX_LENGTH, choices = PAGE_LAYOUTS, default = PAGE_LAYOUTS[0])
-    page_id = models.CharField(max_length = 8, unique = True, default=lambda:str(uuid.uuid4()))
+    page_id = models.CharField(max_length = 36, unique = True, default=lambda:str(uuid.uuid4()))
 
     def addImage(self):
         image = AlbumImage(page = self, idx = len(self.images.all()))
@@ -54,4 +54,4 @@ class AlbumImage(models.Model):
     page = models.ForeignKey(AlbumPage, related_name = "images")
     url = models.URLField(default = "")
     caption = models.TextField(default = "")
-    image_id = models.CharField(max_length = 8, unique = True, default=lambda:str(uuid.uuid4()))
+    image_id = models.CharField(max_length = 36, unique = True, default=lambda:str(uuid.uuid4()))

@@ -77,4 +77,14 @@ def modify(request):
             elif request.method == "POST":
                 return # What to return?
 
+    elif q["action"] == "modify_image_url":
+        if "image_id" in q and "new_url" in q:
+            image = get_object_or_404(AlbumImage, image_id = q["image_id"])
+            image.url = q["new_url"]
+            image.save()
+            if request.method == "GET":
+                return albumView(request, image.page.album.album_id, image.page.idx)
+            elif request.method == "POST":
+                return # What to return?
+
     raise Http404

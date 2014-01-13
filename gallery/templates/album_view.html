@@ -1,7 +1,10 @@
 <!-- This is bad html. If you see this, make it better! -->
 
 <h1>{{ album.title }}</h1>
-<h2>Page {{ page.idx }}<h2>
-{% for picture in page.images.all %}
-    <p>url: {{ image.url }}</p>
+<h2>Page {{ page.idx }}</h2>
+{% for image in page.images.all %}
+    <div class="image_container" image_id="{{ image.image_id }}"
+        <p>url: {{ image.url }}</p>
+        <p>image_id: {{ image.image_id }}</p>
+    </div>
 {% endfor %}
