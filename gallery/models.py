@@ -16,7 +16,7 @@ class Album(models.Model):
     def addPage(self, layout):
         page = AlbumPage(album = self, layout = layout, idx = len(self.pages.all()) + 1)
         page.save()
-        for i in xrange(10):
+        for i in xrange(10): # TODO: maybe this should be done better?
             page.addImage()
         page.save()
 

@@ -1,6 +1,8 @@
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.http import HttpResponse, Http404
+from django.template import RequestContext
 from models import *
+from forms import *
 
 def mainView(request):
     data = {}
@@ -16,14 +18,15 @@ def mainView(request):
     data["page_count"] = len(AlbumPage.objects.all())
     data["image_count"] = len(AlbumImage.objects.all())
     data["album_count"] = len(Album.objects.all())
-    return render_to_response('main.html', data)
+    return render_to_response('main.html', data, context_instance=RequestContext(request))
 
 def albumView(request, album_id, page = 1):
     data = {}
+    data["image_url_form"] = ImageURLForm()
     album = get_object_or_404(Album, album_id = album_id)
     data["album"] = album
     data["page"] = get_object_or_404(AlbumPage, album = album, idx = page)
-    return render_to_response("album_view.html", data)
+    return render_to_response("album_view.html", data, context_instance=RequestContext(request))
 
 def modify(request):
     # TODO: Check login
@@ -36,55 +39,37 @@ def modify(request):
     if q["action"] == "create_album":
         if "title" in q:
             createAlbum(q["title"])
-            if request.method == "GET":
-                return mainView(request)
-            elif request.method == "POST":
-                return # What to return?
+            return mainView(request)
 
     elif q["action"] == "remove_album":
         if "album_id" in q:
             get_object_or_404(Album, album_id = q["album_id"]).delete()
-            if request.method == "GET":
-                return mainView(request)
-            elif request.method == "POST":
-                return # What to return?
+            return mainView(request)
 
     elif q["action"] == "remove_page":
         if "album_id" in q and "idx" in q:
             album = get_object_or_404(Album, album_id = q["album_id"])
             album.pages.filter(idx = q["idx"]).delete()
             album.fixPageNumbers()
-            if request.method == "GET":
-                return albumView(request, q["album_id"], max(1, int(q["idx"]) - 1))
-            elif request.method == "POST":
-                return # What to return?
+            return albumView(request, q["album_id"], max(1, int(q["idx"]) - 1))
 
     elif q["action"] == "add_page":
         if "album_id" in q and "layout" in q:
             album = get_object_or_404(Album, album_id = q["album_id"])
             album.addPage(q["layout"])
-            if request.method == "GET":
-                return albumView(request, q["album_id"], len(album.pages.all()))
-            elif request.method == "POST":
-                return # What to return?
+            return albumView(request, q["album_id"], len(album.pages.all()))
 
     elif q["action"] == "fix_page_numbers":
         if "album_id" in q:
             album = get_object_or_404(Album, album_id = q["album_id"])
             album.fixPageNumbers()
-            if request.method == "GET":
-                return albumView(request, q["album_id"])
-            elif request.method == "POST":
-                return # What to return?
+            return albumView(request, q["album_id"])
 
     elif q["action"] == "modify_image_url":
-        if "image_id" in q and "new_url" in q:
+        if "image_id" in q and "url" in q:
             image = get_object_or_404(AlbumImage, image_id = q["image_id"])
-            image.url = q["new_url"]
+            image.url = q["url"]
             image.save()
-            if request.method == "GET":
-                return albumView(request, image.page.album.album_id, image.page.idx)
-            elif request.method == "POST":
-                return # What to return?
+            return albumView(request, image.page.album.album_id, image.page.idx)
 
     raise Http404
