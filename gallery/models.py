@@ -27,6 +27,7 @@ class Album(models.Model):
         for page in self.pages.all().order_by("idx"):
             page.idx = i
             i += 1
+            page.save()
 
 class AlbumPage(models.Model):
     idx = models.IntegerField()

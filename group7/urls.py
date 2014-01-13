@@ -13,6 +13,6 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'gallery.views.mainView'),
     url(r'^album/([-\w]+)/$', 'gallery.views.albumView'),
-    url(r'^album/([-\w]+)/(\d)$', 'gallery.views.albumView'),
+    url(r'^album/([-\w]+)/(\d+)$', 'gallery.views.albumView'),
     url(r'^modify', 'gallery.views.modify'),
 )
