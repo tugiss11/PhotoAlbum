@@ -11,6 +11,14 @@
 <input type="submit" value="Add" />
 </form>
 
+<form action="/modify/" method="post">{% csrf_token %}
+{{ remove_page_form.as_p }}
+<input type="hidden" value="{{ album.album_id }}" name="album_id" />
+<input type="hidden" value="{{ page.idx }}" name="idx" />
+<input type="hidden" value="remove_page" name="action" />
+<input type="submit" value="Delete current page" />
+</form>
+
 {% for image in page.images.all %}
     <div class="image_container" image_id="{{ image.image_id }}">
         <img src={{image.url}}>

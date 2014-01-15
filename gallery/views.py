@@ -27,10 +27,13 @@ def mainView(request):
 
 def albumView(request, album_id, page = 1):
     data = {}
+
     data["image_url_form"] = modelform_factory(AlbumImage,
                                                fields=["url"])
     data["add_page_form"] = modelform_factory(AlbumPage,
                                               fields=["layout"])
+    data["delete_page_form"] = modelform_factory(AlbumPage, fields=[])
+
     album = get_object_or_404(Album, album_id = album_id)
     data["album"] = album
     try:
