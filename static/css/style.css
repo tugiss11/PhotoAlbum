@@ -1,0 +1,83 @@
+
+body{ background:#F5F5F5;font: 12px/1.5em Arial, Helvetica, sans-serif, "Arial Narrow";color:#a5a5a5;}
+
+label{
+    margin-top: 20px;
+}
+
+input[type="email"], input[type="password"]{
+    background-color: #eee;
+    border: none;
+}
+
+input[type="email"]:focus, input[type="password"]:focus{
+    background-color: #fff;
+}
+.contenthover { padding:20px 20px 10px 20px; }
+.contenthover, .contenthover h3, contenthover a { color:#fff; }
+.contenthover h3, .contenthover p { margin:0 0 10px 0; line-height:1.4em; padding:0; }
+.contenthover a.mybutton { display:block; margin-right:10px; float:left; padding:5px 10px; background:#3c9632; color:#fff; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; text-decoration: none; }
+.contenthover a.mybutton-danger{ display:block; float:left; margin-right:10px; padding:5px 10px; background:#D95350; color:#fff; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; text-decoration: none; }
+.contenthover a.mybutton-danger:hover{background-color: #d2322d;}
+.contenthover a.mybutton:hover { background:#34742d }
+
+.smcq-main{
+    width: 500px;
+    height: 300px;
+
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    margin: auto;
+}
+.smcq-title{
+    font-size:20px;color:#FFFFFF;
+}
+.smcq-text{
+    color:#ccc;
+    margin:0px 10px 0px 10px; 
+}
+.smcq-share{
+    position:absolute;
+    width: 40%;
+    height: 20%;
+    bottom:5%;
+    right:5%;
+}
+.smcq-down{
+    margin-left: 10px;
+    float:left;
+    text-decoration: none;
+}
+.smcq-sharetext{
+    margin-left: 5px;
+    float:left;
+}
+.smcq-down-icon{
+    color: white;
+}
+.smcq-down-icon:hover{
+    color: #555;
+}
+
+.portfolio-categ {
+margin-left: -20px;
+}
+ul{
+    margin: 0;
+    padding: 0;
+}
+li.tupian{
+float: left;
+margin:0px 10px;
+text-decoration: none;
+display: inline;
+}
+
+.smcq-add:hover{
+    opacity:0.4;
+    cursor: pointer;
+}

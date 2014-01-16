@@ -5,6 +5,8 @@ from django.forms.models import modelform_factory
 from models import *
 from forms import *
 
+def indexView(request): #add by liang
+    return render_to_response('index.html',context_instance=RequestContext(request))
 
 def mainView(request):
     data = {}
