@@ -1,0 +1,15 @@
+<!-- This is bad html. If you see this, make it better! -->
+{% for album in albums %}
+    <h2><a href="album/{{ album.album_id }}">{{ album.title }}</a></h2>
+    <p>pages: {{ album.page_count }}</p>
+    <p>remove</p>
+{% endfor %}
+
+<h2>Add new</h2>
+<form action="/modify/" method="post">{% csrf_token %}
+{{ new_album_form.as_p }}
+<input type="hidden" value="create_album" name="action" />
+<input type="submit" value="Create" />
+</form>
+
+<p>{{ album_count }} Albums, {{ page_count }} Pages, {{ image_count }} Images</p>
