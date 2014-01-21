@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/css/bootstrap.css" media="screen">
     <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
-    <link href="http://fonts.googleapis.com/css?family=Oswald" rel="stylesheet" type="text/css"> 
+    <link href="http://fonts.googleapis.com/css?family=Oswald" rel="stylesheet" type="text/css">
     <style>
     body {background:#000;}
   </style>
@@ -14,7 +14,9 @@
 <div class="smcq-main">
   <div style="text-align:center;font-size:6.0em;font-family: Oswald, sans-serif;"><span style="color:#fff;">Memory</span><span style="font-family: Oswald, sans-serif;color:#6e6;">Album</span></div>
   <br><br><br>
-  <p><center><a class="btn btn-default btn-lg" role="button" href="main" >Explore First!</a>     <a class="btn btn-danger btn-lg" role="button" data-toggle="modal" data-target="#Signin">Sing In For More!</a></center></p>
+  <p><center><a class="btn btn-default btn-lg" role="button" href="main" >Explore First!</a>
+  <!--<a class="btn btn-danger btn-lg" role="button" data-toggle="modal" data-target="#Signin">Sign In For More!</a></center></p>-->
+  <a class="btn btn-danger btn-lg" role="button" href="login">Sign In For More!</a>
 </div>
 
  <!--  login part-->
@@ -29,20 +31,20 @@
       <div class="modal-body">
         <form class="form-horizontal" role="form" method="POST" action="main">{% csrf_token %}
           <div class="form-group">
-            <label for="inputEmail" class="col-sm-3 control-label">Email</label>
+            <label for="username" class="col-sm-3 control-label">Username:</label>
             <div class="col-sm-6">
-              <input type="email" class="form-control" id="inputEmail" placeholder="Enter your email...">
+              <input type="text" class="form-control" id="username" placeholder="Enter your username...">
             </div>
           </div>
           <div class="form-group">
-            <label for="inputPassword" class="col-sm-3 control-label">Password</label>
+            <label for="password" class="col-sm-3 control-label">Password:</label>
             <div class="col-sm-6">
-              <input type="password" class="form-control" id="inputPassword" placeholder="Enter your password...">
+              <input type="password" class="form-control" id="password" placeholder="Enter your password...">
             </div>
           </div>
           <div class="form-group">
             <div class="col-sm-offset-3 col-sm-6">
-              <button type="submit" class="btn btn-success">Login</button>
+              <button type="submit" class="btn btn-success" value="login">Login</button>
               <button type="reset" class="btn btn-default">Clear</button>
               <button type="button" class="btn btn-danger pull-right">No Account ?</button>
             </div>

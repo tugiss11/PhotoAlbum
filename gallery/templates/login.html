@@ -1,4 +1,18 @@
-  <div class="modal-dialog">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Memory Album</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/bootstrap.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+    <link href="http://fonts.googleapis.com/css?family=Oswald" rel="stylesheet" type="text/css">
+    <style>
+    body {background:#000;}
+  </style>
+  </head>
+  <body>
+
+<div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -6,27 +20,29 @@
       </div>
 
       <div class="modal-body">
-        <form class="form-horizontal" role="form">
+        <form action="/accounts/auth/" class="form-horizontal" method="post" role="form">{% csrf_token %}
           <div class="form-group">
-            <label for="inputEmail" class="col-sm-3 control-label">Email</label>
+            <label for="username" class="col-sm-3 control-label">Username:</label>
             <div class="col-sm-6">
-              <input type="email" class="form-control" id="inputEmail" placeholder="Enter your email...">
+              <input type="text" value=""  name="username" class="form-control" id="username" placeholder="Enter your username...">
             </div>
           </div>
           <div class="form-group">
-            <label for="inputPassword" class="col-sm-3 control-label">Password</label>
+            <label for="password" class="col-sm-3 control-label">Password</label>
             <div class="col-sm-6">
-              <input type="password" class="form-control" id="inputPassword" placeholder="Enter your password...">
+              <input type="password" value="" name="password" class="form-control" id="password" placeholder="Enter your password...">
             </div>
           </div>
           <div class="form-group">
             <div class="col-sm-offset-3 col-sm-6">
-              <button type="submit" class="btn btn-success">Login</button>
-              <button type="reset" class="btn btn-default">Clear</button>
-              <button type="button" class="btn btn-danger pull-right">No Account ?</button>
+         	<input  class="btn btn-default" type="submit" value="Login"/>
+             <button type="reset" class="btn btn-default">Clear</button>
+             <button type="button" class="btn btn-danger pull-right">No Account ?</button>
             </div>
           </div>
         </form>
       </div>
     </div>
   </div>
+</body>
+</html>

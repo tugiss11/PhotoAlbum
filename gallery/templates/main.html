@@ -69,7 +69,9 @@
             <li class="active">My Album</li>
           </ol>
       </div>
-
+	<div id="content">
+    {% block content %}{% endblock %}
+	</div>
       <!--image part-->
     <div class="row">
       {% for album in albums %}
