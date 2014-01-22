@@ -1,16 +1,17 @@
 
 body{ background:#F5F5F5;font: 12px/1.5em Arial, Helvetica, sans-serif, "Arial Narrow";color:#a5a5a5;}
-
+a{color:#55c755;}
+a:hover{color:#666; text-decoration: none;}
 label{
     margin-top: 20px;
 }
 
-input[type="email"], input[type="password"]{
+input[type="text"], input[type="password"]{
     background-color: #eee;
     border: none;
 }
 
-input[type="email"]:focus, input[type="password"]:focus{
+input[type="text"]:focus, input[type="password"]:focus{
     background-color: #fff;
 }
 .contenthover { padding:20px 20px 10px 20px; }
@@ -32,9 +33,6 @@ input[type="email"]:focus, input[type="password"]:focus{
     right: 0;
 
     margin: auto;
-}
-.smcq-title{
-    font-size:20px;color:#FFFFFF;
 }
 .smcq-text{
     color:#ccc;

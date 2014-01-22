@@ -99,6 +99,9 @@ def login(request):
     c.update(csrf(request))
     return render_to_response('login.html', c)
 
+def register(request):
+    return render_to_response('register.html')
+
 def auth_view(request):
     username = request.POST.get('username','')
     password = request.POST.get('password','')

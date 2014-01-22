@@ -12,6 +12,7 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'gallery.views.indexView'),#change by liang
+    url(r'^register/$', 'gallery.views.register'),#add register url
     url(r'^main$', 'gallery.views.mainView'),
     url(r'^album/([-\w]+)/$', 'gallery.views.albumView'),
     url(r'^album/([-\w]+)/(\d+)$', 'gallery.views.albumView'),

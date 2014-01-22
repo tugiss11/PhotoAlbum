@@ -5,20 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/css/bootstrap.css" media="screen">
     <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+    <link href="http://fonts.googleapis.com/css?family=Oswald" rel="stylesheet" type="text/css">
   </head>
   <body>
-    <header class="navbar navbar-inverse navbar-fixed-top">
+     <header class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <a href="#" class="navbar-brand"><span class="smcq-title">Memory Album</span></a>
+          <a href="#" class="navbar-brand"><span class="smcq-title"><span style="font-family: Oswald, sans-serif;color:#fff;">Memory </span><span style="font-family: Oswald, sans-serif;color:#6e6;">Album</span></a>
         </div>
         <nav class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
             <li>
-              <span class="smcq-text">Welcome, Please Sign In.</span><button type="button" class="btn btn-default navbar-btn"  data-toggle="modal" data-target="#Signin">Sign In</button>
+              <button type="button" class="btn btn-default navbar-btn"  data-toggle="modal" data-target="#Signin">Sign In For More</button>
             </li>
             <li>
-              <span class="smcq-text">Welcome, <strong>Username</strong></span><button type="button" class="btn btn-danger navbar-btn">Logout</button>
+              <span class="smcq-text">Welcome, <strong>Username</strong></span><button type="button" class="btn btn-default navbar-btn">Logout</button>
             </li>
           </ul>
         </nav>
@@ -65,7 +66,7 @@
     <div class="container">
         <div class="row">
           <ol class="breadcrumb">
-            <li><a href="index.html">Home</a></li>
+            <li><a href="main">Home</a></li>
             <li class="active">My Album</li>
           </ol>
       </div>
@@ -77,11 +78,11 @@
       {% for album in albums %}
       <div class="col-sm-6 col-md-4">
         <div class="thumbnail">
-          <img src="/static/images/ts.jpg"alt="...">
+          <a href="album/{{ album.album_id }}"><img src="/static/images/ts.jpg"alt="..."></a>
           <div class="caption">
             <h3><a href="album/{{ album.album_id }}">{{ album.title }}</a></h3>
             <p>Here is the description or author here!</p>
-            <p><a href="#" class="btn btn-primary" role="button">order</a> <a href="#" class="btn btn-danger" role="button">remove</a></p>
+            <p><a href="#" class="btn btn-default" role="button">order</a> <a href="#" class="btn btn-default" role="button">remove</a></p>
           </div>
         </div>
       </div>
@@ -127,15 +128,15 @@
                   </div>
                   <input type="hidden" value="create_album" name="action" />
                 </div>
-
-                <div class="form-group">
-                  <div class="col-sm-offset-3 col-sm-6">
-                    <button type="submit" class="btn btn-success">Create</button>
+            </div>
+                <div class="modal-footer">
+                  <div class="col-sm-offset-1 col-sm-6">
+                    <button type="submit" class="btn btn-success">Add</button>
                     <button type="reset" class="btn btn-default">Clear</button>
                   </div>
                 </div>
               </form>
-            </div>
+            
           </div>
         </div>
       </div>
