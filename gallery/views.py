@@ -13,7 +13,13 @@ def indexView(request): #add by liang
 def mainView(request):
     data = {}
     albums = []
-    for album in Album.objects.all(): # TODO: Only owned!
+    user = auth.get_user(request)
+    queried_albums = None
+    if not request.user.is_authenticated():
+        queried_albums = Album.objects.all()
+    else:
+        queried_albums = user.Albums.all()
+    for album in queried_albums:
         a = {}
         a["title"] = album.title
         a["page_count"] = len(album.pages.all())
@@ -56,7 +62,7 @@ def modify(request):
 
     if q["action"] == "create_album":
         if "title" in q:
-            createAlbum(q["title"])
+            createAlbum(q["title"], request.user)
             return redirect("gallery.views.mainView")
 
     elif q["action"] == "remove_album":

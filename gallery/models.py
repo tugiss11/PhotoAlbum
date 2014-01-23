@@ -1,16 +1,17 @@
 from django.db import models
+from django.contrib.auth.models import User
 from layouts.layout_info import PAGE_LAYOUTS, NAME_DB_MAX_LENGTH
 
 import uuid
 
 def createAlbum(title, owner = None):
-    album = Album(title = title)
+    album = Album(title = title, owner = owner)
     album.save()
     return album
 
 class Album(models.Model):
     title = models.CharField(max_length = 256)
-    #owner = TODO
+    owner = models.ForeignKey(User, blank = True, related_name = "Albums") # TODO: only allow logged in users to add albums
     album_id = models.CharField(max_length = 36, unique = True, default=lambda:str(uuid.uuid4()))
 
     def addPage(self, layout):
