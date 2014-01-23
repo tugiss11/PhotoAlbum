@@ -2,4 +2,5 @@
 NAME_DB_MAX_LENGTH = 20
 PAGE_LAYOUTS = (
    ('default', 'default.css'),
+   ('test1', 'test1.css'),
 )

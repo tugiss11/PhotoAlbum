@@ -5,7 +5,8 @@ import inspect
 NAME_DB_MAX_LENGTH = 20
 
 my_path = os.path.dirname(inspect.getfile(inspect.currentframe()))
-css_files = glob.glob(os.path.join(my_path, "*.css"))
+layout_path = os.path.join(my_path, "..", "..", "static", "page_layouts")
+css_files = glob.glob(os.path.join(layout_path, "*.css"))
 css_files = [os.path.basename(name) for name in css_files]
 out_filename = os.path.join(my_path, 'layout_info.py')
 f = open(out_filename, 'w')
