@@ -186,7 +186,6 @@ def orderAlbumCheckView(request, order_id):
     return render_to_response("order_album_check.html", data, context_instance=RequestContext(request))
 
 def orderAlbumSuccessView(request):
-    # TODO: Only allow POST
     q = request.GET
     checksum = payments.generate_payment_succesfull_checksum(q["pid"], q["ref"])
     if checksum != q["checksum"]:
@@ -197,10 +196,10 @@ def orderAlbumSuccessView(request):
     order_entry.payment_succesful = True
     order_entry.save()
 
-    return redirect("/my_orders", "success")
+    return myOrdersView(request, "success")
 
 def orderAlbumFailView(request):
-    return redirect("/my_orders", "failed")
+    return myOrdersView(request, "fail")
 
 def myOrdersView(request, payment_state = ""):
     print("payment state: " + payment_state)
@@ -212,6 +211,6 @@ def myOrdersView(request, payment_state = ""):
     orders = AlbumOrder.objects.filter(owner = user)
 
     data["orders"] = orders
-    data["pament_state"] = payment_state
+    data["payment_state"] = payment_state
 
     return render_to_response("my_orders.html", data, context_instance=RequestContext(request))
