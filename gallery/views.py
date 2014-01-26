@@ -188,7 +188,6 @@ def orderAlbumCheckView(request, order_id):
 def orderAlbumSuccessView(request):
     # TODO: Only allow POST
     q = request.GET
-    print(q)
     checksum = payments.generate_payment_succesfull_checksum(q["pid"], q["ref"])
     if checksum != q["checksum"]:
         raise Http404
