@@ -114,7 +114,7 @@ def auth_view(request):
     user = auth.authenticate(username=username, password=password)
     if user is not None:
         auth.login(request,user)
-        return HttpResponseRedirect('/loggedin')
+        return HttpResponseRedirect('/main') # The page should redirct to MAIN page. so the following tag full_name should bu changed.
     else:
         return HttpResponseRedirect('/invalid')
 

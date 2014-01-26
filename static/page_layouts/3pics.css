@@ -1,0 +1,87 @@
+.liang-width1{
+    width: 33.33333333333333%;
+}
+.liang-width{
+    width: 100%;
+}
+#p0{
+	width: 60%;
+	height:500px;
+	background-color: white;
+	float: left;
+	margin-right: 3%;
+	margin-bottom: 30px;
+	display: block;
+  	padding: 4px;
+  	line-height: 1.428571429;
+  	border: 1px solid #dddddd;
+  	border-radius: 4px;
+}
+
+#p0 > img{
+	width: 100%;
+	height: 400px;
+}
+.des0{
+	display: none;
+}
+
+#p1{
+	width: 37%;
+	height:500px;
+	background-color: white;
+	float: left;
+	display: block;
+  	padding: 4px;
+  	line-height: 1.428571429;
+  	border: 1px solid #dddddd;
+  	border-radius: 4px;
+}
+#p1 > img{
+	width: 100%;
+	height: 400px;
+}
+.des1{
+	display: none;
+}
+#p2{
+	clear: both;
+	width: 100%;
+	height: 600px;
+	background-color: white;
+	float: left;
+	display: block;
+  	padding: 4px;
+  	line-height: 1.428571429;
+  	border: 1px solid #dddddd;
+  	border-radius: 4px;
+}
+#p2 > img{
+	width: 100%;
+	height: 500px;
+}
+.des2{
+	display: none;
+}
+#p3{
+	display: none;
+}
+#p4{
+    display: none;
+}
+
+#p5{
+	display: none;
+}
+#p6{
+    display: none;
+}
+#p7{
+    display: none;
+}
+#p8{
+	display: none;
+}
+#p9{
+    display: none;
+}
