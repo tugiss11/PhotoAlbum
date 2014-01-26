@@ -110,10 +110,11 @@ def modify(request):
 
     elif q["action"] == "modify_image_url":
         if "image_id" in q and "url" in q:
-            image = get_object_or_404(AlbumImage, image_id = q["image_id"], owner = user)
+            image = get_object_or_404(AlbumImage, image_id = q["image_id"])
+            if image.page.album.owner != user:
+                raise PermissionDenied()
             image.url = q["url"]
             image.save()
-            print "redirecting"
             return redirect("gallery.views.albumView", image.page.album.album_id, image.page.idx)
 
     elif q["action"] == "remove_order":
@@ -130,7 +131,7 @@ def modify(request):
 def login(request):
     c = {}
     c.update(csrf(request))
-    return render_to_response('login.html', c)
+    return render_to_response('login.html', c, context_instance=RequestContext(request))
 
 def register(request):
     return render_to_response('register.html')

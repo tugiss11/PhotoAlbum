@@ -53,7 +53,7 @@ class AlbumPage(models.Model):
 class AlbumImage(models.Model):
     idx = models.IntegerField()
     page = models.ForeignKey(AlbumPage, related_name = "images")
-    url = models.URLField(default = "")
+    url = models.URLField(max_length = 1000, default = "")
     caption = models.TextField(default = "")
     image_id = models.CharField(max_length = 36, unique = True, default=lambda:str(uuid.uuid4()))
 
@@ -69,7 +69,7 @@ class AlbumOrder(models.Model):
     payment_reference_number = models.CharField(max_length = 256)
 
     # Order details
-    date = models.DateField(auto_now_add = True)
+    date = models.DateTimeField(auto_now_add = True)
     client_name = models.CharField(max_length = 256)
     client_address = models.CharField(max_length = 256)
     client_email = models.EmailField()
