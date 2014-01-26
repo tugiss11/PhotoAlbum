@@ -18,4 +18,8 @@ Paid, reference number: {{ order.payment_reference_number }} </p>
 Not paid, <a href="/order_check/{{ order.order_id }}">Pay now</a></p>
 <p><a href="/modify?action=remove_order&amp;order_id={{ order.order_id }}">Cancel order</a></p>
 {% endif %}
+
+{% empty %}
+<p>You have no orders</p>
+
 {% endfor %}

@@ -14,7 +14,7 @@ class Album(models.Model):
     owner = models.ForeignKey(User, blank = True, related_name = "Albums") # TODO: only allow logged in users to add albums
     album_id = models.CharField(max_length = 36, unique = True, default=lambda:str(uuid.uuid4()))
 
-    def addPage(self, layout):
+    def addPage(self, layout = "default"):
         page = AlbumPage(album = self, layout = layout, idx = len(self.pages.all()) + 1)
         page.save()
         for i in xrange(10): # TODO: maybe this should be done better?
@@ -73,3 +73,6 @@ class AlbumOrder(models.Model):
     client_name = models.CharField(max_length = 256)
     client_address = models.CharField(max_length = 256)
     client_email = models.EmailField()
+
+    class Meta:
+        ordering = ["-date"]

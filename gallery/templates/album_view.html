@@ -10,6 +10,17 @@
     <link href="http://fonts.googleapis.com/css?family=Oswald" rel="stylesheet" type="text/css">
   </head>
 	<body>
+    <!-- Facebook SDK -->
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/fi_FI/all.js#xfbml=1&appId=431173956956956";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    <!-- End Facebook SDK -->
+
 		<header class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -46,6 +57,11 @@
                   <li><a data-toggle="modal" data-target="#removepage"><font style="color:red;cursor:pointer;" >Remove Page</font></a></li>
                 </ul>
               </div>
+            </li>
+            <li>
+            <!-- Facebook share button -->
+            <div class="fb-share-button" data-href="http://127.0.0.1:8000/album/{{ album.album_id }}" data-type="button_count"></div>
+            <!-- End Facebook share button -->
             </li>
           </ol>
         </div>
