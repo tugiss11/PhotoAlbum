@@ -6,6 +6,7 @@ from django.contrib import auth
 from django.core.context_processors import csrf
 from models import *
 from forms import *
+import payments
 
 def indexView(request): #add by liang
     return render_to_response('index.html',context_instance=RequestContext(request))
@@ -97,6 +98,14 @@ def modify(request):
             print "redirecting"
             return redirect("gallery.views.albumView", image.page.album.album_id, image.page.idx)
 
+    elif q["action"] == "remove_order":
+        if "order_id" in q:
+            try:
+                AlbumOrder.objects.get(order_id = q["order_id"]).delete()
+            except:
+                pass
+        return redirect("/my_orders")
+
     raise Http404
 
 
@@ -127,3 +136,83 @@ def logout(request):
 
 def invalid_login(request):
     return render_to_response('invalid.html')
+
+def orderAlbumView(request, album_id):
+    if not request.user.is_authenticated():
+        print("not autheticated")
+        raise Http404
+
+    album = get_object_or_404(Album, album_id = album_id)
+    user = auth.get_user(request)
+
+    if request.method == "POST":
+        # Validating form
+        order_form = AlbumOrderForm(request.POST)
+        if order_form.is_valid():
+            q = request.POST
+            order_entry = AlbumOrder(price = len(album.pages.all()) * 2.1, 
+                                     owner = user, 
+                                     album = album,
+                                     client_name = q["client_name"],
+                                     client_address = q["client_address"],
+                                     client_email = q["client_email"])
+            order_entry.save()
+            return redirect("/order_check/" + order_entry.order_id)
+
+    else:
+        order_form = AlbumOrderForm()
+    data = {}
+
+    data["form"] = order_form
+    data["album"] = album
+    data["price"] = len(album.pages.all()) * 2.1
+    return render_to_response('order_album.html', data, context_instance=RequestContext(request))
+
+def orderAlbumCheckView(request, order_id):
+    if not request.user.is_authenticated():
+        raise Http404
+
+    q = request.GET
+    user = auth.get_user(request)
+    order_entry = get_object_or_404(AlbumOrder, owner = user, order_id = order_id)
+    album = order_entry.album
+    data = {}
+
+    data["album"] = album
+    data["order"] = order_entry
+    data["seller_id"] = payments.SELLER_ID
+    data["checksum"] = payments.generate_payment_checksum(order_entry.order_id, order_entry.price)
+
+    return render_to_response("order_album_check.html", data, context_instance=RequestContext(request))
+
+def orderAlbumSuccessView(request):
+    # TODO: Only allow POST
+    q = request.GET
+    print(q)
+    checksum = payments.generate_payment_succesfull_checksum(q["pid"], q["ref"])
+    if checksum != q["checksum"]:
+        raise Http404
+
+    order_entry = get_object_or_404(AlbumOrder, order_id = q["pid"])
+    order_entry.payment_reference_number = q["ref"]
+    order_entry.payment_succesful = True
+    order_entry.save()
+
+    return redirect("/my_orders", "success")
+
+def orderAlbumFailView(request):
+    return redirect("/my_orders", "failed")
+
+def myOrdersView(request, payment_state = ""):
+    print("payment state: " + payment_state)
+    if not request.user.is_authenticated():
+        raise Http404
+
+    user = auth.get_user(request)
+    data = {}
+    orders = AlbumOrder.objects.filter(owner = user)
+
+    data["orders"] = orders
+    data["pament_state"] = payment_state
+
+    return render_to_response("my_orders.html", data, context_instance=RequestContext(request))

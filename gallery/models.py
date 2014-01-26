@@ -56,3 +56,20 @@ class AlbumImage(models.Model):
     url = models.URLField(default = "")
     caption = models.TextField(default = "")
     image_id = models.CharField(max_length = 36, unique = True, default=lambda:str(uuid.uuid4()))
+
+class AlbumOrder(models.Model):
+    # DB details
+    order_id = models.CharField(max_length = 36, unique = True, default=lambda:str(uuid.uuid4()))
+    owner = models.ForeignKey(User, related_name = "+")
+    album = models.ForeignKey(Album, related_name='+')
+    
+    # Payment details
+    price = models.DecimalField(decimal_places = 2, max_digits = 6)
+    payment_succesful = models.BooleanField(default = False)
+    payment_reference_number = models.CharField(max_length = 256)
+
+    # Order details
+    date = models.DateField(auto_now_add = True)
+    client_name = models.CharField(max_length = 256)
+    client_address = models.CharField(max_length = 256)
+    client_email = models.EmailField()

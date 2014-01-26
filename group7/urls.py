@@ -22,6 +22,12 @@ urlpatterns = patterns('',
     url(r'auth/$', 'gallery.views.auth_view'),
     url(r'loggedin/$', 'gallery.views.loggedin'),
     url(r'invalid/$', 'gallery.views.invalid_login'),
+    url(r'^order_album/([-\w]+)/$', 'gallery.views.orderAlbumView'),
+    url(r'^order_check/([-\w]+)/$', 'gallery.views.orderAlbumCheckView'),
+    url(r'^my_orders/$', 'gallery.views.myOrdersView'),
+    url(r'^order_succesfull', 'gallery.views.orderAlbumSuccessView'),
+    url(r'^order_failed', 'gallery.views.orderAlbumFailView'),
+
 )
 
 

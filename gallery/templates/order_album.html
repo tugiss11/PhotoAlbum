@@ -1,0 +1,26 @@
+<!-- Bad html, created for quick test! -->
+<h1>Ordering Album {{ album.title }}</h1>
+<p>Price: {{ price }} &euro;</p>
+<form method="post">
+    {{ form.non_field_errors }}
+    {% csrf_token %}
+    <div class="fieldWrapper">
+        {{ form.client_name.errors }}
+        <label for="id_client_name">Your name:</label>
+        {{ form.client_name }}
+    </div>
+    <div class="fieldWrapper">
+        {{ form.client_address.errors }}
+        <label for="id_client_address">Your address:</label>
+        {{ form.client_address }}
+    </div>
+    <div class="fieldWrapper">
+        {{ form.client_email.errors }}
+        <label for="id_client_email">Your email address:</label>
+        {{ form.client_email }}
+    </div>
+
+    <input type="hidden" value="{{ album.album_id }}" name="album_id" />
+
+    <p><input type="submit" value="Order" /></p>
+</form>

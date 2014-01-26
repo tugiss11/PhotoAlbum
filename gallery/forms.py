@@ -1,7 +1,7 @@
-from django.forms import ModelForm
+from django import forms
 from models import *
 
-class ImageURLForm(ModelForm):
-    class Meta:
-        model = AlbumImage
-        fields = ["url"]
+class AlbumOrderForm(forms.Form):
+    client_name = forms.CharField(max_length = 256)
+    client_address = forms.CharField(max_length = 256)
+    client_email = forms.EmailField()
