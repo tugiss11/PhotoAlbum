@@ -50,12 +50,18 @@ class AlbumPage(models.Model):
         AlbumPage.objects.filter(page = self).delete()
         super(AlbumPage, self).delete(*args, **kwargs)
 
+    class Meta:
+        ordering = ["idx"]
+
 class AlbumImage(models.Model):
     idx = models.IntegerField()
     page = models.ForeignKey(AlbumPage, related_name = "images")
     url = models.URLField(max_length = 1000, default = "")
     caption = models.TextField(default = "")
     image_id = models.CharField(max_length = 36, unique = True, default=lambda:str(uuid.uuid4()))
+
+    class Meta:
+        ordering = ["idx"]
 
 class AlbumOrder(models.Model):
     # DB details

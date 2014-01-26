@@ -43,7 +43,9 @@
       {% for album in albums %}
       <div class="col-sm-6 col-md-4">
         <div class="thumbnail">
-          <a href="album/{{ album.album_id }}"><img src="/static/images/ts.jpg"alt="..."></a>
+          <a href="album/{{ album.album_id }}">
+            <img src="{% if album.thumb_image %}{{ album.thumb_image }}{% else %}/static/images/ts.jpg{% endif %}" alt="{{ album.title }}">
+          </a>
           <div class="caption">
             <h3><a href="album/{{ album.album_id }}">{{ album.title }}</a></h3>
             <p>Here is the description or author here!</p>

@@ -72,6 +72,8 @@
 		  <div class="liang-width">
         {% for image in page.images.all %}
         <div id="p{{image.idx}}">
+        <!-- Change the previous div to this and remove following img element for images with correct aspect ratio. Also the style after background-image should be moved to css. -joona
+        <div id="p{{image.idx}}" class="image_container" style="background-image:url({{image.url}});background-size:contain;background-position:center;background-repeat:no-repeat"> -->
           <img src="{{image.url}}" onerror="this.src='/static/images/ts.jpg'"/>
           <div class="caption">
             <p class="des{{image.idx}}">Description here</p>

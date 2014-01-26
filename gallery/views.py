@@ -27,6 +27,10 @@ def mainView(request):
         a["title"] = album.title
         a["page_count"] = len(album.pages.all())
         a["album_id"] = album.album_id
+        try:
+            a["thumb_image"] = album.pages.get(idx = 1).images.filter(url__contains = "http://")[0].url
+        except Exception as e:
+            pass
         albums.append(a)
 
     data["albums"] = albums
