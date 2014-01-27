@@ -22,7 +22,7 @@
             {% endif %}
             {% if user.is_authenticated %}
             <li>
-              <span class="smcq-text">Welcome, <strong>Username</strong></span>
+              <span class="smcq-text">Logged in as <strong>{{ user.username}}</strong></span>
               <button type="button" class="btn btn-default navbar-btn" onclick="location='/logout/'">Logout</button>
             </li>
             {% endif %}
@@ -34,10 +34,15 @@
     <div class="container">
         <div class="row">
           <ol class="breadcrumb">
-            <li><a href="main">Home</a></li>
+            <li><a href="/main">Home</a></li>
             <li class="active">My Album</li>
           </ol>
       </div>
+
+    <div id="content">
+    {% block content %}{% endblock %}
+    </div>
+
       <!--image part-->
     <div class="row">
       {% for album in albums %}
@@ -57,11 +62,13 @@
       <!--image part end-->
 
       <!--add plus sign-->
+      {% if user.is_authenticated %}
       <div class="col-sm-6 col-md-4">
           <center>
             <a  data-toggle="modal" data-target="#addalbum"><img src="/static/images/plus.png" class="smcq-add"></a>
           </center>
       </div>
+      
       <!--add plus sign end-->
     </div>
     <!--pagination-->
@@ -77,7 +84,7 @@
       </ul>
       <div class="well">{{ album_count }} Albums, {{ page_count }} Pages, {{ image_count }} Images</div>
       <!--pagination end-->
-
+      {% endif %}
       <!-- add album -->
       <div class="modal fade" id="addalbum" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">

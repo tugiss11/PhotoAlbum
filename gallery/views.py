@@ -6,6 +6,7 @@ from django.contrib import auth
 from django.core.context_processors import csrf
 from django.views.decorators.csrf import csrf_protect
 from django.core.exceptions import PermissionDenied
+from django.contrib.auth.forms import UserCreationForm
 from models import *
 from forms import *
 import payments
@@ -137,8 +138,7 @@ def login(request):
     c.update(csrf(request))
     return render_to_response('login.html', c, context_instance=RequestContext(request))
 
-def register(request):
-    return render_to_response('register.html')
+
 
 def auth_view(request):
     username = request.POST.get('username','')
@@ -159,6 +159,23 @@ def logout(request):
 
 def invalid_login(request):
     return render_to_response('invalid.html')
+
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect("/newuser")
+    args = {}
+    args.update(csrf(request))
+    args['form'] = UserCreationForm()
+
+    return render_to_response('register.html', args)
+
+
+def newuser(request):
+    return render_to_response('newuser.html')
 
 def orderAlbumView(request, album_id):
     if not request.user.is_authenticated():
