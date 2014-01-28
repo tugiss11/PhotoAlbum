@@ -45,7 +45,6 @@ def mainView(request):
 
 def albumView(request, album_id, page = 1):
     page = int(page)
-
     data = {}
 
     data["image_url_form"] = modelform_factory(AlbumImage,

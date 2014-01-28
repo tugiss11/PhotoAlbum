@@ -93,9 +93,18 @@
         </div>
         {% endfor %}
       </div>
-      
     </div>
-
+          <ul class="pager">
+            <li><a style="cursor:pointer;"onclick="prepage()">Previous</a></li>
+            <li><a style="cursor:pointer;"onclick="nextpage()">Next</a></li>
+            <li>
+              <label>Page:</label>
+              <input type="text" style="background-color:#eee; border: #ccc 1px solid;" size = "3" id="enterpage">
+              <input type="button" onclick="jumppage()" size="2" value="Go">
+            </li>
+            <!-- use in js for jump page-->
+            <input type="hidden" id="currentpage" value="{{page.idx}}">
+          </ul>
           <!--add pages here -->
               <div class="modal fade" id="addpage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -157,6 +166,29 @@
           <!--remove pages end-->
 
 		<script type="text/javascript" src="/static/js/jquery.min.js"></script>
-    	<script type="text/javascript" src="/static/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap.js"></script>
+
+    <!--jump page -->
+    <script type="text/javascript">
+      function _(x){
+        return document.getElementById(x);
+      }
+      function jumppage(){
+        var a = _('enterpage').value;
+        window.location="http://127.0.0.1:8000/album/{{ album.album_id }}/"+ a;
+      }
+      function nextpage(){
+        var a = _('currentpage').value;
+        var b = a + 1;
+          window.location="http://127.0.0.1:8000/album/{{ album.album_id }}/"+ b;
+      }
+      function prepage(){
+        var a = _('currentpage').value;
+        if (a>1){
+          var b = a - 1;
+          window.location="http://127.0.0.1:8000/album/{{ album.album_id }}/"+ b;
+        }
+      }
+    </script>
 	</body>
 </html>
