@@ -78,7 +78,7 @@
       <div id="outbox">
         {% for image in page.images.all %}
          <div class="content_box">
-          <img src="{{image.url}}" onerror="this.src='/static/images/ts.jpg'"/>
+          <img src="{% if image.url != '' %}{{image.url}}{%else%}/static/images/ts.jpg{% endif %}" 
           {% if user.is_authenticated %}
           <form action="/modify/" method="post" id="changepic">{% csrf_token %}
               {{ image_url_form.as_p }}
