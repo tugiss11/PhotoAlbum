@@ -1,26 +1,77 @@
-<!-- Bad html, created for quick test! -->
-<h1>Ordering Album {{ album.title }}</h1>
-<p>Price: {{ price }} &euro;</p>
-<form method="post">
-    {{ form.non_field_errors }}
-    {% csrf_token %}
-    <div class="fieldWrapper">
-        {{ form.client_name.errors }}
-        <label for="id_client_name">Your name:</label>
-        {{ form.client_name }}
-    </div>
-    <div class="fieldWrapper">
-        {{ form.client_address.errors }}
-        <label for="id_client_address">Your address:</label>
-        {{ form.client_address }}
-    </div>
-    <div class="fieldWrapper">
-        {{ form.client_email.errors }}
-        <label for="id_client_email">Your email address:</label>
-        {{ form.client_email }}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Ordering Album {{ album.title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/bootstrap.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+    <link href="http://fonts.googleapis.com/css?family=Oswald" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+     <header class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="/main" class="navbar-brand"><span class="smcq-title"><span style="font-family: Oswald, sans-serif;color:#fff;">Memory </span><span style="font-family: Oswald, sans-serif;color:#6e6;">Album</span></a>
+        </div>
+        <nav class="collapse navbar-collapse">
+          <ul class="nav navbar-nav navbar-right">
+            {% if not user.is_authenticated %}
+            <li>
+              <button type="button" class="btn btn-default navbar-btn" onclick="location='/login/'">Sign In For More</button>
+            </li>
+            {% endif %}
+            {% if user.is_authenticated %}
+            <li>
+              <span class="smcq-text">Logged in as <strong>{{ user.username}}</strong></span>
+              <button type="button" class="btn btn-default navbar-btn" onclick="location='/logout/'">Logout</button>
+            </li>
+            {% endif %}
+          </ul>
+        </nav>
+      </div>
+    </header><br/><br/><br/><br/>
+    <div class="container">
+
+      <div class="row">
+          <ol class="breadcrumb">
+            <li><a href="/main">Home</a></li>
+            <li class="active">Order Album {{ album.title }}</li>
+          </ol>
+      </div>
+
+      <div class="alert alert-success">
+        <h5>You are ording <strong>{{ album.title }} Album </strong> now ! The price is <strong>{{ price }}</strong> &euro;.</h5>
+      </div>
+
+      <form method="post"  class="alert alert-success">
+            {{ form.non_field_errors }}
+            {% csrf_token %}
+            <div class="fieldWrapper">
+                {{ form.client_name.errors }}
+                <label for="id_client_name">Name:　</label>
+                {{ form.client_name }}
+            </div>
+            <div class="fieldWrapper">
+                {{ form.client_address.errors }}
+                <label for="id_client_address">Address:</label>
+                {{ form.client_address }}
+            </div>
+            <div class="fieldWrapper">
+                {{ form.client_email.errors }}
+                <label for="id_client_email">Email:　</label>
+                {{ form.client_email }}
+            </div>
+
+            <input type="hidden" value="{{ album.album_id }}" name="album_id" />
+            <br>
+            <p>
+              <input type="submit" value="Order" class="btn btn-default btn-sm"/>
+              <input type="reset" value="Clear"  class="btn btn-default btn-sm"/>
+            </p>
+        </form>
+
     </div>
 
-    <input type="hidden" value="{{ album.album_id }}" name="album_id" />
 
-    <p><input type="submit" value="Order" /></p>
-</form>
+  </body>
+</html>

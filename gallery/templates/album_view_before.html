@@ -51,7 +51,6 @@
             <li><a href="/main">Home</a></li>
             <li class="active">{{ album.title }}</li>
             <li class="active">Page {{ page.idx }}</li>
-            {% if user.is_authenticated %}
             <li>          
               <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -64,7 +63,6 @@
                 </ul>
               </div>
             </li>
-            {% endif %}
             <li>
             <!-- Facebook share button -->
             <div class="fb-share-button" data-href="http://127.0.0.1:8000/album/{{ album.album_id }}" data-type="button_count"></div>
@@ -74,24 +72,29 @@
         </div>
       <!--upper part end-->
 
-      <!--image waterfall here-->
-      <div id="outbox">
+    <div class="row">
+      
+		  <div class="liang-width">
         {% for image in page.images.all %}
-         <div class="content_box">
+        <div id="p{{image.idx}}">
+        <!-- Change the previous div to this and remove following img element for images with correct aspect ratio. Also the style after background-image should be moved to css. -joona
+        <div id="p{{image.idx}}" class="image_container" style="background-image:url({{image.url}});background-size:contain;background-position:center;background-repeat:no-repeat"> -->
           <img src="{{image.url}}" onerror="this.src='/static/images/ts.jpg'"/>
-          {% if user.is_authenticated %}
-          <form action="/modify/" method="post" id="changepic">{% csrf_token %}
+          <div class="caption">
+            <p class="des{{image.idx}}">Description here</p>
+              <form action="/modify/" method="post">{% csrf_token %}
               {{ image_url_form.as_p }}
               <input type="hidden" value="{{ image.image_id }}" name="image_id" />
               <input type="hidden" value="modify_image_url" name="action" />
               <input type="submit" value="Change" />
-          </form>
-          {% endif %}
-         </div>
-         
-        {% endfor %} 
+              </form>
+
+          </div>
+        </div>
+        {% endfor %}
       </div>
-      <ul class="pager">
+    </div>
+          <ul class="pager">
             <li><a style="cursor:pointer;"onclick="prepage()">Previous</a></li>
             <li><a style="cursor:pointer;"onclick="nextpage()">Next</a></li>
             <li>
@@ -162,7 +165,7 @@
       </div>
           <!--remove pages end-->
 
-    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+		<script type="text/javascript" src="/static/js/jquery.min.js"></script>
     <script type="text/javascript" src="/static/js/bootstrap.js"></script>
 
     <!--jump page -->
@@ -187,7 +190,5 @@
         }
       }
     </script>
-
-
-  </body>
+	</body>
 </html>

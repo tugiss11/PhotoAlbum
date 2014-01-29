@@ -36,18 +36,19 @@
           <ol class="breadcrumb">
             <li><a href="/main">Home</a></li>
             <li class="active">My Album</li>
+            {% if user.is_authenticated %}
+            <li><a type="button" data-toggle="modal" data-target="#addalbum" class="btn btn-default btn-sm ">Add Album</a></li>
+            {% endif %}
           </ol>
       </div>
 
-    <div id="content">
-    {% block content %}{% endblock %}
-    </div>
-
       <!--image part-->
     <div class="row">
-      {% for album in albums %}
-      <div class="col-sm-6 col-md-4">
-        <div class="thumbnail">
+
+
+      <div id="outbox">
+        {% for album in albums %}
+         <div class="content_box thumbnail">
           <a href="album/{{ album.album_id }}">
             <img src="{% if album.thumb_image %}{{ album.thumb_image }}{% else %}/static/images/ts.jpg{% endif %}" alt="{{ album.title }}">
           </a>
@@ -56,23 +57,17 @@
             <p>Here is the description or author here!</p>
             <p><a href="order_album/{{ album.album_id }}" class="btn btn-default" role="button">order</a> <a href="#" class="btn btn-default" role="button">remove</a></p>
           </div>
-        </div>
+         </div>
+         
+        {% endfor %} 
       </div>
-      {% endfor %}
+
       <!--image part end-->
 
-      <!--add plus sign-->
-      {% if user.is_authenticated %}
-      <div class="col-sm-6 col-md-4">
-          <center>
-            <a  data-toggle="modal" data-target="#addalbum"><img src="/static/images/plus.png" class="smcq-add"></a>
-          </center>
-      </div>
-      
-      <!--add plus sign end-->
+
     </div>
     <!--pagination-->
-
+      {% if user.is_authenticated %}
       <div class="well">{{ album_count }} Albums, {{ page_count }} Pages, {{ image_count }} Images</div>
       <!--pagination end-->
       {% endif %}

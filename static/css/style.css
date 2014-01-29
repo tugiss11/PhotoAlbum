@@ -79,3 +79,46 @@ display: inline;
     opacity:0.4;
     cursor: pointer;
 }
+
+#outbox{
+    -moz-column-count: 3;
+    -moz-column-gap: 5%;
+    -webkit-column-count: 3;
+    -webkit-column-gap: 5%;
+    column-count: 3;
+    column-gap: 5%;
+    width:100%; 
+    margin:0 auto;
+}
+#outbox form{
+    margin-top: -10px;
+}
+.content_box{
+    -webkit-box-shadow: 3px 3px 3px;
+    -moz-box-shadow: 3px 3px 3px;
+    box-shadow: 3px 3px 3px;
+    width:100%;
+    display: inline-block;
+    font-size:12px;
+    background-image: #FFF;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 5px 5px 5px 0;
+    overflow:hidden;
+    font-size:15px;
+    line-height: 1.5em;
+    letter-spacing: 1pt;
+    color:#353535;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;     
+}
+.content_box img{
+    width: 100%;
+}
+
+.fieldWrapper input{
+    background-color: white;
+    width: 200px;
+
+}
