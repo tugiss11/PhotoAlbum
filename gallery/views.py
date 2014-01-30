@@ -79,51 +79,64 @@ def modify(request):
 
     q = request.POST
 
-    if q["action"] == "create_album":
-        if "title" in q:
-            createAlbum(q["title"], user)
-            return redirect("gallery.views.mainView")
+    try:
+        if q["action"] == "create_album":
+            if "title" in q:
+                createAlbum(q["title"], user)
+                return redirect("gallery.views.mainView")
 
-    elif q["action"] == "remove_album":
-        if "album_id" in q:
-            get_object_or_404(Album, album_id = q["album_id"], owner = user).delete()
-            return redirect("gallery.views.mainView")
+        elif q["action"] == "remove_album":
+            if "album_id" in q:
+                get_object_or_404(Album, album_id = q["album_id"], owner = user).delete()
+                return redirect("gallery.views.mainView")
 
-    elif q["action"] == "remove_page":
-        if "album_id" in q and "idx" in q:
-            album = get_object_or_404(Album, album_id = q["album_id"], owner = user)
-            album.pages.filter(idx = q["idx"]).delete()
-            album.fixPageNumbers()
-            return redirect("gallery.views.albumView", q["album_id"], max(1, int(q["idx"]) - 1))
+        elif q["action"] == "remove_page":
+            if "album_id" in q and "idx" in q:
+                album = get_object_or_404(Album, album_id = q["album_id"], owner = user)
+                album.pages.filter(idx = q["idx"]).delete()
+                album.fixPageNumbers()
+                return redirect("gallery.views.albumView", q["album_id"], max(1, int(q["idx"]) - 1))
 
-    elif q["action"] == "add_page":
-        if "album_id" in q and "layout" in q:
-            album = get_object_or_404(Album, album_id = q["album_id"], owner = user)
-            album.addPage(q["layout"])
-            return redirect("gallery.views.albumView", q["album_id"], len(album.pages.all()))
+        elif q["action"] == "add_page":
+            if "album_id" in q and "layout" in q:
+                album = get_object_or_404(Album, album_id = q["album_id"], owner = user)
+                album.addPage(q["layout"])
+                return redirect("gallery.views.albumView", q["album_id"], len(album.pages.all()))
 
-    elif q["action"] == "fix_page_numbers":
-        if "album_id" in q:
-            album = get_object_or_404(Album, album_id = q["album_id"], owner = user)
-            album.fixPageNumbers()
-            return redirect("gallery.views.albumView", q["album_id"])
+        elif q["action"] == "change_page_layout":
+            if "album_id" in q and "layout" in q and "idx" in q:
+                album = get_object_or_404(Album, album_id = q["album_id"], owner = user)
+                page = album.pages.get(idx = q["idx"])
+                page.layout = q["layout"]
+                page.save()
+                return redirect("gallery.views.albumView", q["album_id"], int(q["idx"]))
 
-    elif q["action"] == "modify_image_url":
-        if "image_id" in q and "url" in q:
-            image = get_object_or_404(AlbumImage, image_id = q["image_id"])
-            if image.page.album.owner != user:
-                raise PermissionDenied()
-            image.url = q["url"]
-            image.save()
-            return redirect("gallery.views.albumView", image.page.album.album_id, image.page.idx)
+        elif q["action"] == "fix_page_numbers":
+            if "album_id" in q:
+                album = get_object_or_404(Album, album_id = q["album_id"], owner = user)
+                album.fixPageNumbers()
+                return redirect("gallery.views.albumView", q["album_id"])
 
-    elif q["action"] == "remove_order":
-        if "order_id" in q:
-            try:
-                AlbumOrder.objects.get(order_id = q["order_id"], owner = user).delete()
-            except:
-                pass
-        return redirect("/my_orders")
+        elif q["action"] == "modify_image_url":
+            if "image_id" in q and "url" in q:
+                image = get_object_or_404(AlbumImage, image_id = q["image_id"])
+                if image.page.album.owner != user:
+                    raise PermissionDenied()
+                image.url = q["url"]
+                image.save()
+                return redirect("gallery.views.albumView", image.page.album.album_id, image.page.idx)
+
+        elif q["action"] == "remove_order":
+            if "order_id" in q:
+                try:
+                    AlbumOrder.objects.get(order_id = q["order_id"], owner = user).delete()
+                except:
+                    pass
+            return redirect("/my_orders")
+
+    except Exception as e:
+        print(e)
+        pass # Any errors? 404!
 
     raise Http404
 

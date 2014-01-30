@@ -59,6 +59,7 @@
                 </button>
                 <ul class="dropdown-menu" role="menu">
                   <li><a data-toggle="modal" data-target="#addpage" style="cursor:pointer;"><font style="color:blue">Add Page</font></a></li>
+                  <li><a data-toggle="modal" data-target="#change_layout" style="cursor:pointer;"><font style="color:blue">Change Layout</font></a></li>
                   <li class="divider"></li>
                   <li><a data-toggle="modal" data-target="#removepage"><font style="color:red;cursor:pointer;" >Remove Page</font></a></li>
                 </ul>
@@ -103,7 +104,7 @@
             <input type="hidden" id="currentpage" value="{{page.idx}}">
           </ul>
           <!--add pages here -->
-              <div class="modal fade" id="addpage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal fade" id="addpage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -111,8 +112,9 @@
               <h4 class="modal-title" id="myModalLabel">Add new Pages</h4>
             </div>
 
+            <form class="form-horizontal" role="form" action="/modify/" method="post">{% csrf_token %}
             <div class="modal-body">
-              <form class="form-horizontal" role="form" action="/modify/" method="post">{% csrf_token %}<br>
+              <br>
               <font style="font-size:15px;">Please choose the layout of new page:</font> {{ add_page_form.as_p }}
               <input type="hidden" value="{{ album.album_id }}" name="album_id" />
               <input type="hidden" value="add_page" name="action" />
@@ -161,6 +163,36 @@
         </div>
       </div>
           <!--remove pages end-->
+       <!--change layout here -->
+      <div class="modal fade" id="change_layout" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="myModalLabel">Change layout</h4>
+            </div>
+
+            <form class="form-horizontal" role="form" action="/modify/" method="post">{% csrf_token %}
+            <div class="modal-body">
+              <br>
+              <font style="font-size:15px;">Please choose new layout:</font> {{ add_page_form.as_p }}
+              <p>Current layout: {{ page.layout }}.css </p>
+              <input type="hidden" value="{{ album.album_id }}" name="album_id" />
+              <input type="hidden" value="{{ page.idx }}" name="idx" />
+              <input type="hidden" value="change_page_layout" name="action" />
+            </div>
+
+                <div class="modal-footer">
+                  <div class="col-sm-offset-3 col-sm-6">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Change</button>
+                  </div>
+                </div>
+              </form>
+            
+          </div>
+        </div>
+      </div>
 
     <script type="text/javascript" src="/static/js/jquery.min.js"></script>
     <script type="text/javascript" src="/static/js/bootstrap.js"></script>
