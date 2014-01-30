@@ -135,10 +135,9 @@ def modify(request):
             return redirect("/my_orders")
 
     except Exception as e:
-        print(e)
-        pass # Any errors? 404!
+        pass # Any errors? Permission Denied!
 
-    raise Http404
+    raise PermissionDenied()
 
 
 def login(request):
