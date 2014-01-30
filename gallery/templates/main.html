@@ -55,7 +55,7 @@
           <div class="caption">
             <h3><a href="album/{{ album.album_id }}">{{ album.title }}</a></h3>
             <p>Here is the description or author here!</p>
-            <p><a href="order_album/{{ album.album_id }}" class="btn btn-default" role="button">order</a> <a href="#" class="btn btn-default" role="button">remove</a></p>
+            <p><a href="order_album/{{ album.album_id }}" class="btn btn-default" role="button">order</a> <a href="modify?action=remove_album&amp;album_id={{ album.album_id }}" class="btn btn-default" role="button">remove</a></p>
           </div>
          </div>
          
