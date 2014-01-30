@@ -38,7 +38,12 @@
         {% else %}
         <div class="alert alert-danger">
         Not paid, <a href="/order_check/{{ order.order_id }}">Pay now</a></p>
-        <p><a href="/modify?action=remove_order&amp;order_id={{ order.order_id }}">Cancel order</a></p>
+        <form action="/modify/" method="post"> 
+          {% csrf_token %}
+          <input type="hidden" value="{{ order.order_id }}" name="order_id" />
+          <input type="hidden" value="remove_order" name="action" />
+          <button type="submit" class="btn btn-danger">Cancel order</button>
+        </form>
         </div>
         {% endif %}
 

@@ -73,15 +73,11 @@ def albumView(request, album_id, page = 1):
 
 @csrf_protect
 def modify(request):
-    if not request.user.is_authenticated():
+    if not request.user.is_authenticated() or request.method == 'GET':
         raise PermissionDenied()
     user = auth.get_user(request)
 
-    q = None
-    if request.method == 'GET':
-        q = request.GET
-    elif request.method == 'POST':
-        q = request.POST
+    q = request.POST
 
     if q["action"] == "create_album":
         if "title" in q:

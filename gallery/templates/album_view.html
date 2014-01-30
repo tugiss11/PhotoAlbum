@@ -138,10 +138,10 @@
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               <h4 class="modal-title" id="myModalLabel">Remove current Page</h4>
             </div>
-
-            <div class="modal-body">
-              <form class="form-horizontal" role="form" action="/modify/" method="post">{% csrf_token %}<br>
+            <form class="form-horizontal" role="form" action="/modify/" method="post">{% csrf_token %}<br>
               <span class="label label-danger">ATTENTION:</span><font style="font-size:15px;"> You are removing this page now...really want to remove?</font>
+            <div class="modal-body">
+              
 
               {{ remove_page_form.as_p }}
               <input type="hidden" value="{{ album.album_id }}" name="album_id" />
