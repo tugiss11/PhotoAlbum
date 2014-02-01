@@ -65,6 +65,9 @@
                 </ul>
               </div>
             </li>
+            <li>
+              Public: <input type="checkbox" onchange="change_public_state(this);" checked="{{album.public}}">
+            </li>
             {% endif %}
             <li>
             <!-- Facebook share button -->
@@ -79,7 +82,7 @@
       <div id="outbox">
         {% for image in page.images.all %}
          <div class="content_box">
-          <img src="{% if image.url != '' %}{{image.url}}{%else%}/static/images/ts.jpg{% endif %}" 
+          <img src="{% if image.url != '' %}{{image.url}}{%else%}/static/images/ts.jpg{% endif %}">
           {% if user.is_authenticated %}
           <form action="/modify/" method="post" id="changepic">{% csrf_token %}
               {{ image_url_form.as_p }}
@@ -104,6 +107,7 @@
             <input type="hidden" id="currentpage" value="{{page.idx}}">
           </ul>
           <!--add pages here -->
+{% if user.is_authenticated %}
       <div class="modal fade" id="addpage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -131,6 +135,7 @@
           </div>
         </div>
       </div>
+      
           <!--add pages end -->
           <!--remove pages here-->
                   <div class="modal fade" id="removepage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -193,6 +198,7 @@
           </div>
         </div>
       </div>
+{% endif %}
 
     <script type="text/javascript" src="/static/js/jquery.min.js"></script>
     <script type="text/javascript" src="/static/js/bootstrap.js"></script>
@@ -218,6 +224,48 @@
           window.location="http://127.0.0.1:8000/album/{{ album.album_id }}/"+ b;
         }
       }
+      function change_public_state(t) {
+        var t = $(t);
+        $.post("/modify", {
+          //csrftoken: getCookie('csrftoken'),
+          action: "change_album_public_state",
+          album_id: "{{ album.album_id }}",
+          state: t.prop("checked")
+        });
+      }
+
+      /* ----- Start CSRF SUPPORT ------ */
+      // https://docs.djangoproject.com/en/dev/ref/contrib/csrf/#ajax
+      function getCookie(name) {
+      var cookieValue = null;
+      if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+            }
+         }
+       }
+     return cookieValue;
+    }
+    var csrftoken = getCookie('csrftoken');
+
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    $.ajaxSetup({
+        crossDomain: false, // obviates need for sameOrigin test
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type)) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+    /* ----- End CSRF SUPPORT ------ */
     </script>
 
 

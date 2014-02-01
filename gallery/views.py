@@ -54,6 +54,13 @@ def albumView(request, album_id, page = 1):
     data["delete_page_form"] = modelform_factory(AlbumPage, fields=[])
 
     album = get_object_or_404(Album, album_id = album_id)
+    user = auth.get_user(request)
+
+    print(album.public)
+    print(album.owner != user)
+    if (not album.public) and album.owner != user:
+        return redirect("/main")
+
     album_page_count = len(album.pages.all())
 
     if album_page_count < 1:
@@ -73,6 +80,7 @@ def albumView(request, album_id, page = 1):
 
 @csrf_protect
 def modify(request):
+    print(request)
     if not request.user.is_authenticated() or request.method == 'GET':
         raise PermissionDenied()
     user = auth.get_user(request)
@@ -89,6 +97,14 @@ def modify(request):
             if "album_id" in q:
                 get_object_or_404(Album, album_id = q["album_id"], owner = user).delete()
                 return redirect("gallery.views.mainView")
+
+        elif q["action"] == "change_album_public_state":
+            print(q)
+            if "album_id" in q and "state" in q:
+                album = get_object_or_404(Album, album_id = q["album_id"], owner = user)
+                album.public = q["state"].lower() == "true"
+                album.save()
+                return redirect("gallery.views.albumView", q["album_id"])
 
         elif q["action"] == "remove_page":
             if "album_id" in q and "idx" in q:
@@ -135,7 +151,7 @@ def modify(request):
             return redirect("/my_orders")
 
     except Exception as e:
-        pass # Any errors? Permission Denied!
+        pass # Any errors? Permission Denied! That will show the hackers!
 
     raise PermissionDenied()
 

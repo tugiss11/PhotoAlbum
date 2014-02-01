@@ -11,8 +11,9 @@ def createAlbum(title, owner = None):
 
 class Album(models.Model):
     title = models.CharField(max_length = 256)
-    owner = models.ForeignKey(User, blank = True, related_name = "Albums") # TODO: only allow logged in users to add albums
+    owner = models.ForeignKey(User, blank = True, related_name = "Albums") 
     album_id = models.CharField(max_length = 36, unique = True, default=lambda:str(uuid.uuid4()))
+    public = models.BooleanField(default = False)
 
     def addPage(self, layout = "default"):
         page = AlbumPage(album = self, layout = layout, idx = len(self.pages.all()) + 1)
