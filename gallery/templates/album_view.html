@@ -66,7 +66,7 @@
               </div>
             </li>
             <li>
-              Public: <input type="checkbox" onchange="change_public_state(this);" checked="{{album.public}}">
+              Public: <input type="checkbox" onchange="change_public_state(this);" {% if album.public%}checked{% endif %}>
             </li>
             {% endif %}
             <li>
