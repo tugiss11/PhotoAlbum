@@ -210,18 +210,18 @@
       }
       function jumppage(){
         var a = _('enterpage').value;
-        window.location="http://127.0.0.1:8000/album/{{ album.album_id }}/"+ a;
+        window.location="/album/{{ album.album_id }}/"+ a;
       }
       function nextpage(){
         var a = _('currentpage').value;
         var b = a + 1;
-          window.location="http://127.0.0.1:8000/album/{{ album.album_id }}/"+ b;
+          window.location="/album/{{ album.album_id }}/"+ b;
       }
       function prepage(){
         var a = _('currentpage').value;
         if (a>1){
           var b = a - 1;
-          window.location="http://127.0.0.1:8000/album/{{ album.album_id }}/"+ b;
+          window.location="/album/{{ album.album_id }}/"+ b;
         }
       }
       function change_public_state(t) {
