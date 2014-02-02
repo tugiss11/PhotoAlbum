@@ -20,7 +20,7 @@ def mainView(request):
     user = auth.get_user(request)
     queried_albums = None
     if not request.user.is_authenticated():
-        queried_albums = Album.objects.all()
+        queried_albums = Album.objects.filter(public = True)[:19]
     else:
         queried_albums = user.Albums.all()
     for album in queried_albums:
