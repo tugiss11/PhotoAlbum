@@ -56,8 +56,6 @@ def albumView(request, album_id, page = 1):
     album = get_object_or_404(Album, album_id = album_id)
     user = auth.get_user(request)
 
-    print(album.public)
-    print(album.owner != user)
     if (not album.public) and album.owner != user:
         return redirect("/main")
 
@@ -80,7 +78,6 @@ def albumView(request, album_id, page = 1):
 
 @csrf_protect
 def modify(request):
-    print(request)
     if not request.user.is_authenticated() or request.method == 'GET':
         raise PermissionDenied()
     user = auth.get_user(request)
@@ -99,7 +96,6 @@ def modify(request):
                 return redirect("gallery.views.mainView")
 
         elif q["action"] == "change_album_public_state":
-            print(q)
             if "album_id" in q and "state" in q:
                 album = get_object_or_404(Album, album_id = q["album_id"], owner = user)
                 album.public = q["state"].lower() == "true"
@@ -264,7 +260,6 @@ def orderAlbumFailView(request):
     return myOrdersView(request, "fail")
 
 def myOrdersView(request, payment_state = ""):
-    print("payment state: " + payment_state)
     if not request.user.is_authenticated():
         raise Http404
 

@@ -28,6 +28,7 @@ urlpatterns = patterns('',
     url(r'^my_orders/$', 'gallery.views.myOrdersView'),
     url(r'^order_succesfull', 'gallery.views.orderAlbumSuccessView'),
     url(r'^order_failed', 'gallery.views.orderAlbumFailView'),
+    url(r'^search_flickr$', 'gallery.flickrsupport.flickr_search_view'),
 
 )
 

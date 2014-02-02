@@ -1,0 +1,22 @@
+<!-- Bad html, make it better -->
+<div>
+<h1>Random results from Flickr</h1>
+<a href="{{album_url}}">Return to album</a>
+</div>
+{% for current in flickr %}
+<div style="float:left;">
+  <img src="{{ current.thumb_url }}" alt="{{ current.title }}">
+  <form action="/modify/" method="post" id="choose_form{{ current.id }}">
+    {% csrf_token %}
+    {{ image_url_form.as_p }}
+    <input type="hidden" value="{{ image_id }}" name="image_id" />
+    <input type="hidden" value="{{ current.url }}" name="url" />
+    <input type="hidden" value="modify_image_url" name="action" />
+    <input type="submit" value="Choose" />
+  </form>
+</div>
+
+{% empty %}
+<h2>No search results</h2>
+
+{% endfor %}
