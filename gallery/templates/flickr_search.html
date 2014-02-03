@@ -1,22 +1,34 @@
-<!-- Bad html, make it better -->
-<div>
-<h1>Random results from Flickr</h1>
-<a href="{{album_url}}">Return to album</a>
-</div>
-{% for current in flickr %}
-<div style="float:left;">
-  <img src="{{ current.thumb_url }}" alt="{{ current.title }}">
-  <form action="/modify/" method="post" id="choose_form{{ current.id }}">
-    {% csrf_token %}
-    {{ image_url_form.as_p }}
-    <input type="hidden" value="{{ image_id }}" name="image_id" />
-    <input type="hidden" value="{{ current.url }}" name="url" />
-    <input type="hidden" value="modify_image_url" name="action" />
-    <input type="submit" value="Choose" />
-  </form>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Memory Album</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/bootstrap.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="/static/css/style_flickr.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script>
+  </head>
+	<body>
+			<div class="well">
+			<a class="btn btn-default" href="{{album_url}}">Return to album</a>
+			
+			</div>
+			<div id="outbox">
+			{% for current in flickr %}
+				<div class="content_box">
+					<img src="{{ current.thumb_url }}" alt="{{ current.title }}">
+				<form action="/modify/" method="post" id="choose_form{{ current.id }}">
+				    {% csrf_token %}
+				    {{ image_url_form.as_p }}
+				    <input type="hidden" value="{{ image_id }}" name="image_id" />
+				    <input type="hidden" value="{{ current.url }}" name="url" />
+				    <input type="hidden" value="modify_image_url" name="action" />
+				    <input type="submit" value="Choose" />
+				  </form>
+				</div>
 
-{% empty %}
-<h2>No search results</h2>
-
-{% endfor %}
+				{% empty %}
+				<h4>No search results</h4>
+				{% endfor %}
+			</div>
+	</body>
+</html>

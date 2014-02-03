@@ -6,18 +6,10 @@
     <link rel="stylesheet" href="/static/css/bootstrap.css" media="screen">
     <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
     <link href="http://fonts.googleapis.com/css?family=Oswald" rel="stylesheet" type="text/css">
-    <style>
-    body {background:#000;}
-  </style>
   </head>
   <body>
 
-  <form action="/register/" method="post">{% csrf_token %}
-    {{form}}
-    <input type="submit" value="Register"/>
-  </form>
-
-<!--<div class="modal-dialog">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" id="myModalLabel">Please Register Here</h4>
@@ -25,7 +17,7 @@
 
       <div class="modal-body">
         <form action="/register/" class="form-horizontal" method="post" role="form">{% csrf_token %}
-          <div class="form-group">
+<!--           <div class="form-group">
             <label for="username" class="col-sm-3 control-label">Username</label>
             <div class="col-sm-6">
               <input type="text" value=""  name="username" class="form-control" id="username" placeholder="Enter your username...">
@@ -49,7 +41,9 @@
              <button type="reset" class="btn btn-default">Clear</button>
              <a type="button" class="btn btn-danger pull-right" href="/login">Return Login</a>
             </div>
-          </div>
+          </div> -->
+            {{form}}
+            <input type="submit" value="Register"/>
         </form>
       </div>
     </div>

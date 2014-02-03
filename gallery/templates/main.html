@@ -45,7 +45,10 @@
 
       <!--image part-->
     <div class="row">
-
+    
+        {% block content %}
+        {% endblock %}
+    
 
       <div id="outbox">
         {% for album in albums %}
@@ -75,10 +78,10 @@
 
     </div>
     <!--pagination-->
-      {% if user.is_authenticated %}
-      <div class="well">{{ album_count }} Albums, {{ page_count }} Pages, {{ image_count }} Images</div>
+      
+      <div class="well">Site information: {{ album_count }} Albums, {{ page_count }} Pages, {{ image_count }} Images</div>
       <!--pagination end-->
-      {% endif %}
+      
       <!-- add album -->
       <div class="modal fade" id="addalbum" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">

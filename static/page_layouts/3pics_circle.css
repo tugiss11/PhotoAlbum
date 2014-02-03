@@ -1,7 +1,16 @@
+img{
+	border-radius: 50%;
+}
+.content_box{
+	border: none;
+}
 #p1{
     display: none;
 }
 #p2{
+    display: none;
+}
+#p3{
     display: none;
 }
 #p4{
@@ -10,10 +19,6 @@
 #p5{
 	display: none;
 }
-#p3{
-    display: none;
-}
-
 #p8{
 	display: none;
 }

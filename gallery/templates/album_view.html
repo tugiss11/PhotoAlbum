@@ -87,15 +87,15 @@
           <form action="/modify/" method="post" id="changepic{{ image.idx }}">
             {% csrf_token %}
             <label for="id_url">Url:</label>
-            <input type="input" name="url" id="id_url" value="{{image.url}}">
+            <input type="input" name="url" id="id_url" value="{{image.url}}" placeholder="Type url here">
             <input type="hidden" value="{{ image.image_id }}" name="image_id" />
             <input type="hidden" value="modify_image_url" name="action" />
             <input type="submit" value="Change" />
           </form>
           <form action="/search_flickr" method="post" id="search{{ image.idx }}">
             {% csrf_token %}
-            <label for="id_terms">Search for picture:</label>
-            <input type="input" name="terms" id="id_terms">
+            <label for="id_terms">Search:</label>
+            <input type="input" name="terms" id="id_terms" placeholder="Search pics from flickr">
             <input type="hidden" value="{{ image.image_id }}" name="image_id" />
             <input type="hidden" value="modify_image_url" name="action" />
             <input type="submit" value="Search" />

@@ -1,0 +1,37 @@
+.content_box{
+	border: none;
+}
+#p0 img{
+	border-radius: 50%;
+}
+#p4 img{
+	border-radius: 50%;
+}
+#p1 img{
+	border-radius: 50%;
+}
+
+#p6 img{
+	border-radius: 50%;
+}
+#p7 img{
+    border-radius: 50%;
+}
+
+#p2{
+    display: none;
+}
+
+#p5{
+	display: none;
+}
+#p3{
+    display: none;
+}
+
+#p8{
+	display: none;
+}
+#p9{
+    display: none;
+}
