@@ -174,7 +174,7 @@ def loggedin(request):
 
 def logout(request):
     auth.logout(request)
-    return render_to_response('logout.html')
+    return render_to_response('index.html')
 
 def invalid_login(request):
     return render_to_response('invalid.html')
@@ -194,7 +194,9 @@ def register(request):
 
 
 def newuser(request):
-    return render_to_response('newuser.html')
+    c = {}
+    c.update(csrf(request))
+    return render_to_response('login.html', c, context_instance=RequestContext(request))
 
 def orderAlbumView(request, album_id):
     if not request.user.is_authenticated():

@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,13 +11,19 @@
   </head>
   <body>
 
+<<<<<<< HEAD
   <div class="modal-dialog">
+=======
+
+<div class="modal-dialog">
+>>>>>>> upstream/master
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="myModalLabel">Please Register Here</h4>
+        <h4 class="modal-title" id="myModalLabel">Please Create Account Here</h4>
       </div>
 
       <div class="modal-body">
+<<<<<<< HEAD
         <form action="/register/" class="form-horizontal" method="post" role="form">{% csrf_token %}
 <!--           <div class="form-group">
             <label for="username" class="col-sm-3 control-label">Username</label>
@@ -45,8 +53,25 @@
             {{form}}
             <input type="submit" value="Register"/>
         </form>
+=======
+          <form class="form-horizontal" method="post" role="form"> {% csrf_token %}
+            {% for field in form %}
+      <fieldset class="form-group">
+          <label class="col-sm-3 control-label" for="id_{{ field.name }}">{{ field.label }}</label>
+            <div class="col-sm-6">
+              <input type="{{field.field.widget.input_type}}" class="form-control"
+                name="{{ field.name }}"
+                id="id_{{ field.name }}"> 
+        <p class="help-text">{{ field.help_text }} </p>
+       </div>
+      </fieldset>
+      {% endfor %}
+        <div class="form-group">
+          <div class="col-sm-offset-3 col-sm-6">
+              <input  class="btn btn-success" type="submit" value="Register"/>
+              <button type="reset" class="btn btn-default">Clear</button>
+
+        </div>
+>>>>>>> upstream/master
       </div>
-    </div>
-  </div>
-</body>
-</html>
+</form>
