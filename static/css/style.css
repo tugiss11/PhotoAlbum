@@ -94,9 +94,7 @@ display: inline;
     margin-top: -10px;
 }
 .content_box{
-    -webkit-box-shadow: 3px 3px 3px;
-    -moz-box-shadow: 3px 3px 3px;
-    box-shadow: 3px 3px 3px;
+
     width:100%;
     display: inline-block;
     font-size:12px;

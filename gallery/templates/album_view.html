@@ -81,7 +81,7 @@
       <!--image waterfall here-->
       <div id="outbox">
         {% for image in page.images.all %}
-         <div class="content_box">
+         <div class="content_box" id = "p{{image.idx}}">
           <img src="{% if image.url != '' %}{{image.url}}{%else%}/static/images/ts.jpg{% endif %}">
           {% if user.is_authenticated %}
           <form action="/modify/" method="post" id="changepic">{% csrf_token %}

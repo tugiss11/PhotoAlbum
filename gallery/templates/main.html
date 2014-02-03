@@ -38,6 +38,7 @@
             <li class="active">My Album</li>
             {% if user.is_authenticated %}
             <li><a type="button" data-toggle="modal" data-target="#addalbum" class="btn btn-default btn-sm ">Add Album</a></li>
+            <li><a type="button" class="btn btn-default btn-sm " href="/my_orders">My Orders</a></li>
             {% endif %}
           </ol>
       </div>
@@ -55,14 +56,14 @@
           <div class="caption">
             <h3><a href="album/{{ album.album_id }}">{{ album.title }}</a></h3>
             <p>Here is the description or author here!</p>
-            <p><a href="order_album/{{ album.album_id }}" class="btn btn-default" role="button">order</a> 
-            <form action="/modify/" method="post"> 
-              {% csrf_token %}
+            {% if user.is_authenticated %}
+            <form action="/modify/" method="post" style="margin-top:10px;">{% csrf_token %}
+            <a href="order_album/{{ album.album_id }}" class="btn btn-default" role="button">order</a> 
               <input type="hidden" value="{{ album.album_id }}" name="album_id" />
               <input type="hidden" value="remove_album" name="action" />
               <button type="submit" class="btn btn-danger">Remove</button>
             </form>
-            </p>
+            {% endif %}
           </div>
          </div>
          
