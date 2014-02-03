@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,50 +9,13 @@
     <link href="http://fonts.googleapis.com/css?family=Oswald" rel="stylesheet" type="text/css">
   </head>
   <body>
-
-<<<<<<< HEAD
-  <div class="modal-dialog">
-=======
-
 <div class="modal-dialog">
->>>>>>> upstream/master
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" id="myModalLabel">Please Create Account Here</h4>
       </div>
 
       <div class="modal-body">
-<<<<<<< HEAD
-        <form action="/register/" class="form-horizontal" method="post" role="form">{% csrf_token %}
-<!--           <div class="form-group">
-            <label for="username" class="col-sm-3 control-label">Username</label>
-            <div class="col-sm-6">
-              <input type="text" value=""  name="username" class="form-control" id="username" placeholder="Enter your username...">
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="password" class="col-sm-3 control-label">Password</label>
-            <div class="col-sm-6">
-              <input type="password" value="" name="password" class="form-control" id="password" placeholder="Enter your password...">
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="password" class="col-sm-3 control-label">Re-Password</label>
-            <div class="col-sm-6">
-              <input type="password" value="" name="password" class="form-control" id="password" placeholder="Enter your password...">
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-offset-3 col-sm-6">
-         	<input  class="btn btn-success" type="submit" value="Register"/>
-             <button type="reset" class="btn btn-default">Clear</button>
-             <a type="button" class="btn btn-danger pull-right" href="/login">Return Login</a>
-            </div>
-          </div> -->
-            {{form}}
-            <input type="submit" value="Register"/>
-        </form>
-=======
           <form class="form-horizontal" method="post" role="form"> {% csrf_token %}
             {% for field in form %}
       <fieldset class="form-group">
@@ -72,6 +34,6 @@
               <button type="reset" class="btn btn-default">Clear</button>
 
         </div>
->>>>>>> upstream/master
+
       </div>
 </form>

@@ -196,7 +196,7 @@ def register(request):
 def newuser(request):
     c = {}
     c.update(csrf(request))
-    return render_to_response('login.html', c, context_instance=RequestContext(request))
+    return render_to_response('newuser.html', c, context_instance=RequestContext(request))
 
 def orderAlbumView(request, album_id):
     if not request.user.is_authenticated():

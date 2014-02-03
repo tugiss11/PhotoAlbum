@@ -78,8 +78,9 @@
 
     </div>
     <!--pagination-->
-      
-      <div class="well">Site information: {{ album_count }} Albums, {{ page_count }} Pages, {{ image_count }} Images</div>
+      {% if user.is_authenticated %}
+      <div class="well">{{ album_count }} Albums, {{ page_count }} Pages, {{ image_count }} Images</div>
+      {% endif %}
       <!--pagination end-->
       
       <!-- add album -->
