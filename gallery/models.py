@@ -14,6 +14,7 @@ class Album(models.Model):
     owner = models.ForeignKey(User, blank = True, related_name = "Albums") 
     album_id = models.CharField(max_length = 36, unique = True, default=lambda:str(uuid.uuid4()))
     public = models.BooleanField(default = False)
+    description = models.CharField(max_length = 256)
 
     def addPage(self, layout = "default"):
         page = AlbumPage(album = self, layout = layout, idx = len(self.pages.all()) + 1)

@@ -28,6 +28,7 @@ def mainView(request):
         a["title"] = album.title
         a["page_count"] = len(album.pages.all())
         a["album_id"] = album.album_id
+        a["album_description"] = album.description
         try:
             a["thumb_image"] = album.pages.get(idx = 1).images.filter(url__contains = "http://")[0].url
         except Exception as e:
@@ -145,6 +146,13 @@ def modify(request):
                 except:
                     pass
             return redirect("/my_orders")
+
+        elif q["action"] == "change_description":
+            if "album_id" in q and "description" in q:
+                album = get_object_or_404(Album, album_id = q["album_id"], owner = user)
+                album.description = q["description"]
+                album.save()
+                return redirect("gallery.views.albumView", q["album_id"])
 
     except Exception as e:
         pass # Any errors? Permission Denied! That will show the hackers!
