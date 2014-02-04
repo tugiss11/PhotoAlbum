@@ -17,7 +17,7 @@
           <ul class="nav navbar-nav navbar-right">
             {% if not user.is_authenticated %}
             <li>
-              <button type="button" class="btn btn-default navbar-btn" onclick="location='/login/'">Sign In For More</button>
+              <button type="button" class="btn btn-default navbar-btn" onclick="location='/login/'">Log In For More</button>
             </li>
             {% endif %}
             {% if user.is_authenticated %}
@@ -58,7 +58,7 @@
           </a>
           <div class="caption">
             <h3><a href="album/{{ album.album_id }}">{{ album.title }}</a></h3>
-            <p>Here is the description or author here!</p>
+            <p>{{ album.album_description }}</p>
             {% if user.is_authenticated %}
             <form action="/modify/" method="post" style="margin-top:10px;">{% csrf_token %}
             <a href="order_album/{{ album.album_id }}" class="btn btn-default" role="button">Order</a> 

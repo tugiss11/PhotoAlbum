@@ -30,7 +30,7 @@
           <ul class="nav navbar-nav navbar-right">
             {% if not user.is_authenticated %}
             <li>
-              <button type="button" class="btn btn-default navbar-btn" onclick="location='/login/'">Sign In For More</button>
+              <button type="button" class="btn btn-default navbar-btn" onclick="location='/login/'">Log In For More</button>
             </li>
             {% endif %}
             {% if user.is_authenticated %}
@@ -74,10 +74,24 @@
             <div class="fb-share-button" data-href="http://127.0.0.1:8000/album/{{ album.album_id }}" data-type="button_count"></div>
             <!-- End Facebook share button -->
             </li>
+           
           </ol>
+
         </div>
       <!--upper part end-->
 
+      <div class="content_box">
+      <form class="form-horizontal" role="form" action="/modify/" method="post">
+      {% csrf_token %}
+      
+      <input type="hidden" value="{{ album.album_id }}" name="album_id"/>
+      <input type="hidden" value="change_description" name="action"/>
+      <input type="input" name="description" class="form-control" onchange="this.form.submit()" id="id_description" value="{{album.description}}" placeholder="Type album description here">
+      
+      
+      </form>
+    
+      </div>
       <!--image waterfall here-->
       <div id="outbox">
         {% for image in page.images.all %}
