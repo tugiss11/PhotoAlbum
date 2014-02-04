@@ -81,18 +81,19 @@
       <!--upper part end-->
 
       <div class="content_box">
+      {% if user.is_authenticated %}  
       <form class="form-horizontal" role="form" action="/modify/" method="post">
       {% csrf_token %}
       
       <input type="hidden" value="{{ album.album_id }}" name="album_id"/>
       <input type="hidden" value="change_description" name="action"/>
-      <input type="input" name="description" class="form-control"
-      {% if user.is_authenticated %} onchange="this.form.submit()" {% endif %}
-      {% if not user.is_authenticated %} readonly  {% endif %}
-       id="id_description" value="{{album.description}}" placeholder="Type album description here">
-      
-      
+      <input type="input" name="description" class="form-control" onchange="this.form.submit()" id="id_description" value="{{album.description}}" placeholder="Type album description here">
+      {% endif %}
       </form>
+      {% if not user.is_authenticated %} {{album.description}}  {% endif %}
+    
+      
+      
     
       </div>
       <!--image waterfall here-->
