@@ -154,6 +154,15 @@ def modify(request):
                 album.save()
                 return redirect("gallery.views.albumView", q["album_id"])
 
+        elif q["action"] == "modify_image_caption":
+            if "image_id" in q and "caption" in q:
+                image = get_object_or_404(AlbumImage, image_id = q["image_id"])
+                if image.page.album.owner != user:
+                    raise PermissionDenied()
+                image.caption = q["caption"]
+                image.save()
+                return redirect("gallery.views.albumView", image.page.album.album_id, image.page.idx)
+
     except Exception as e:
         pass # Any errors? Permission Denied! That will show the hackers!
 
