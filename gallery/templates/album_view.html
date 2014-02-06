@@ -68,6 +68,9 @@
             <li>
               Public: <input type="checkbox" onchange="change_public_state(this);" {% if album.public%}checked{% endif %}>
             </li>
+            <li>
+              Edit mode: <input type="checkbox" onchange="toggle_edit_mode(this);" checked>
+            </li>
             {% endif %}
             <li>
             <!-- Facebook share button -->
@@ -103,30 +106,32 @@
          <div class="content_box" id = "p{{image.idx}}">
           <img src="{% if image.url != '' %}{{image.url}}{%else%}/static/images/ts.jpg{% endif %}" title="{{image.caption}}" >
           {% if user.is_authenticated %}
-          <form action="/modify/" method="post" id="changepic{{ image.idx }}">
-            {% csrf_token %}
-            <label for="id_url">Url:</label>
-            <input type="input" name="url" id="id_url" value="{{image.url}}" placeholder="Type url here">
-            <input type="hidden" value="{{ image.image_id }}" name="image_id" />
-            <input type="hidden" value="modify_image_url" name="action" />
-            <input type="submit" value="Change" />
-          </form>
-          <form action="/search_flickr" method="post" id="search{{ image.idx }}">
-            {% csrf_token %}
-            <label for="id_terms">Search:</label>
-            <input type="input" name="terms" id="id_terms" placeholder="Search pics from flickr">
-            <input type="hidden" value="{{ image.image_id }}" name="image_id" />
-            <input type="hidden" value="modify_image_url" name="action" />
-            <input type="submit" value="Search" />
-          </form>
-          <form action="/modify/" method="post" id="caption{{ image.idx }}">
-            {% csrf_token %}
-            <label for="caption">Caption:</label>
-            <input type="input" name="caption" id="id_caption" value="{{image.caption}}" placeholder="Type caption here">
-            <input type="hidden" value="{{ image.image_id }}" name="image_id" />
-            <input type="hidden" value="modify_image_caption" name="action" />
-            <input type="submit" value="Change" />
-          </form>
+          <div class="edit_tools">
+            <form action="/modify/" method="post" id="changepic{{ image.idx }}">
+              {% csrf_token %}
+              <label for="id_url">Url:</label>
+              <input type="input" name="url" id="id_url" value="{{image.url}}" placeholder="Type url here">
+              <input type="hidden" value="{{ image.image_id }}" name="image_id" />
+              <input type="hidden" value="modify_image_url" name="action" />
+              <input type="submit" value="Change" />
+            </form>
+            <form action="/search_flickr" method="post" id="search{{ image.idx }}">
+              {% csrf_token %}
+              <label for="id_terms">Search:</label>
+              <input type="input" name="terms" id="id_terms" placeholder="Search pics from flickr">
+              <input type="hidden" value="{{ image.image_id }}" name="image_id" />
+              <input type="hidden" value="modify_image_url" name="action" />
+              <input type="submit" value="Search" />
+            </form>
+            <form action="/modify/" method="post" id="caption{{ image.idx }}">
+              {% csrf_token %}
+              <label for="caption">Caption:</label>
+              <input type="input" name="caption" id="id_caption" value="{{image.caption}}" placeholder="Type caption here">
+              <input type="hidden" value="{{ image.image_id }}" name="image_id" />
+              <input type="hidden" value="modify_image_caption" name="action" />
+              <input type="submit" value="Change" />
+            </form>
+          </div>
           {% endif %}
          </div>
          
@@ -269,6 +274,13 @@
           album_id: "{{ album.album_id }}",
           state: t.prop("checked")
         });
+      }
+      function toggle_edit_mode(t) {
+        if (!$(t).prop("checked"))
+          $(".edit_tools").addClass("hidden");
+        else
+          $(".edit_tools").removeClass("hidden");
+
       }
 
       /* ----- Start CSRF SUPPORT ------ */

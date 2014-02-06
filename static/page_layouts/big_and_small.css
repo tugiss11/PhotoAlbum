@@ -1,0 +1,44 @@
+#outbox {
+    -moz-column-count: 1;
+}
+
+#p0 {
+    width: 24%;
+    float: left;
+}
+#p1 {
+    width: 24%;
+    float: left;
+}
+#p2 {
+    width: 24%;
+    float: left;
+}
+#p3 {
+    width: 24%;
+    float: left;
+}
+#p5 {
+    width: 24%;
+    float: left;
+}
+#p6 {
+    width: 24%;
+    float: left;
+}
+#p7 {
+    width: 24%;
+    float: left;
+}
+#p8 {
+    width: 24%;
+    float: left;
+}
+{
+    width: 24%;
+    float: left;
+}
+
+#p9 {
+    display: none;
+}
