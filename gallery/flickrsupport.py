@@ -10,6 +10,11 @@ from random import randrange
 
 from models import *
 
+class flicrException(Exception):
+    def __init__(self, value):
+        self.value = value
+    def __str__(self):
+        return repr(self.value)
 
 def flickr_search(terms):
     url = "http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=24859aa23c48aad43966878ae07f9486&tags="
@@ -17,9 +22,15 @@ def flickr_search(terms):
         url += term + "+"
     url += "&sort=relevance&media=photos&format=json&nojsoncallback=1"
     result = json.load(urllib2.urlopen(url))
+    if result["stat"] != "ok":
+        msg = "Unknow error from flickr"
+        if "message" in result:
+            msg = result["message"]
+        raise flicrException(msg.encode('ascii','ignore'))
     pagecount = result["photos"]["pages"]
+
     if pagecount > 1:
-        url += "&page=" + str(min(randrange(pagecount), 50))
+        url += "&page=" + str(randrange(min(pagecount, 50)))
         result = json.load(urllib2.urlopen(url))
     out = []
     for photo in result["photos"]["photo"]:
@@ -45,6 +56,9 @@ def flickr_search_view(request):
         image = AlbumImage.objects.get(image_id = q["image_id"])
         data["album_url"] = "/album/" + str(image.page.album.album_id) + "/" + str(image.page.idx)
         return render_to_response('flickr_search.html', data, context_instance=RequestContext(request))
+
+    except flicrException as e:
+        return render_to_response("flickr_error.html", {"msg": e})
 
     except Exception as e:
         raise Http404

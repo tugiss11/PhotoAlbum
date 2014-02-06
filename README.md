@@ -1,6 +1,25 @@
 group-7-2013
 ============
 
+Final Submission
+----------------
+Features By Creator
+
+Joona Heinikoski 79655J
+- Database
+    - Works well and reliably
+    -
+    -
+
+
+Liang
+
+Tuukka
+
+
+Planning
+--------
+
 Introduction
 ------------
 
