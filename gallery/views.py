@@ -57,6 +57,8 @@ def albumView(request, album_id, page = 1):
     album = get_object_or_404(Album, album_id = album_id)
     user = auth.get_user(request)
 
+    data["user_owns_album"] = (album.owner == user)
+
     if (not album.public) and album.owner != user:
         return redirect("/main")
 
