@@ -80,6 +80,7 @@ display: inline;
     cursor: pointer;
 }
 
+
 #outbox{
     -moz-column-count: 3;
     -moz-column-gap: 5%;
@@ -113,6 +114,14 @@ display: inline;
 }
 .content_box img{
     width: 100%;
+}
+#wrapper .text {
+position:relative;
+bottom:40px;
+line-height: 30px;
+left:0px;
+background-color: #fff;
+opacity: 0.7;
 }
 
 .fieldWrapper input{
