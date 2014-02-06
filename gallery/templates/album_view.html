@@ -81,6 +81,7 @@
       <!--upper part end-->
 
       <div class="content_box">
+      <h1> {{album.title}} </h1>
       {% if user.is_authenticated %}  
       <form class="form-horizontal" role="form" action="/modify/" method="post">
       {% csrf_token %}
