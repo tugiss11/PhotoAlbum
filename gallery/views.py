@@ -77,7 +77,22 @@ def albumView(request, album_id, page = 1):
         pass
     return render_to_response("album_view.html", data, context_instance=RequestContext(request))
 
+def query_view(request):
+    try:
+        q = request.GET
+        print q
+        if q["action"] == "user_name_free":
+            if "name" in q:
+                if User.objects.filter(username = q["name"]).exists():
+                    return HttpResponse("false")
+                else:
+                    return HttpResponse("true")
+
+    except Exception as e:
+        raise PermissionDenied()
+
 @csrf_protect
+# all modification requests are handled here
 def modify(request):
     if not request.user.is_authenticated() or request.method == 'GET':
         raise PermissionDenied()
