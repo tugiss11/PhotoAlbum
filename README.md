@@ -20,7 +20,7 @@ Not implemented:
     - We wanted to polish other features and improve reliability
 
 Features By Creator
-
+-------------------
 Joona Heinikoski 79655J
 - Backend developer
 - Album functionality (Basic functionality)
