@@ -65,9 +65,22 @@ Liang
 - Site design and layout
 - Remove this line when you have read (and improved if necessary) the generic parts at the beginning
 
-Tuukka
-- Come up with a title
-- Remove this line when you have read (and improved if necessary) the generic parts at the beginning
+Tuukka Järvinen 79439A
+
+- Authentication
+    - Uses Django auth
+    - Logging in/out and creating accounts works fine
+
+- Album functionality (Basic functionality)
+    - User can write album descriptions
+    - User can set captions for images
+
+- Usability improvements
+    - Language
+    - Navigation
+    - Differences between authenticated and non-authenticated views
+    
+
 
 Planning
 --------
