@@ -63,7 +63,7 @@ Joona Heinikoski 79655J
 Liang GUO 397616
 - User interface developer
 - Index View
-    - Come up with the Name called "MemoryAlbum" and first designed the index page which I wnat to emphesisze the LOGO and give the first strong impression to the visitor.
+    - Come up with the name called "MemoryAlbum" and first designed the index page which I want to emphasize the LOGO and give the first strong impression to the visitor.
 - Login and Register View
     - Check the username is taken or not then give the feedback to the user.(Ajax)
     - Designed the Login and Register page and focus on the key point, I don't want to bother the visitor in this step, so keep the process as simple as possible.
@@ -79,7 +79,7 @@ Liang GUO 397616
     - Made the bottom jump page bar using javascript which user could visit the next/previous or customize page.
     - Made the Dropdown Setting button and add the "Add page", "Remove Page" and "Change Layout" button in it.
     - When the user Remove Page, I made a warning popup page to let the users ensure their action. 
-- The filckr search page View
+- The flickr search page View
     - Made 5 column "multi-column" layout which the page could load more pictures at one time.
 - The Order Album Page
     - Made the order album page and let the user to ensure the information before payment.
