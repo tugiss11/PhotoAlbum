@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
     <title>Memory Album</title>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/css/bootstrap.css" media="screen">
     <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
-    <link rel="stylesheet" href="/static/page_layouts/{{ page.layout }}.css" media="screen">
+    <link rel="stylesheet" href="/static/page_layouts/{{page.layout}}.css" media="screen">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script>
     <link href="http://fonts.googleapis.com/css?family=Oswald" rel="stylesheet" type="text/css">
   </head>
@@ -24,21 +25,27 @@
      <header class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <a href="#" class="navbar-brand"><span class="smcq-title"><span style="font-family: Oswald, sans-serif;color:#fff;">Memory </span><span style="font-family: Oswald, sans-serif;color:#6e6;">Album</span></a>
+          <div class="smcq-title navbar-brand">
+          <span style="font-family: Oswald, sans-serif;color:#fff;">Memory</span>
+          <span style="font-family: Oswald, sans-serif;color:#6e6;">Album</span>
+          </div>
         </div>
         <nav class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
-            {% if not user.is_authenticated %}
             <li>
+              {% if not user.is_authenticated %}
               <button type="button" class="btn btn-default navbar-btn" onclick="location='/login/'">Log In For More</button>
+              {% endif %}
             </li>
-            {% endif %}
-            {% if user.is_authenticated %}
+            
+            
             <li>
+              {% if user.is_authenticated %}
               <span class="smcq-text">Logged in as <strong>{{ user.username}}</strong></span>
               <button type="button" class="btn btn-default navbar-btn" onclick="location='/logout/'">Logout</button>
+              {% endif %}
             </li>
-            {% endif %}
+            
           </ul>
         </nav>
       </div>
@@ -46,32 +53,41 @@
       
     <div class="container">
       <!--upper part-->
-                <div class="row">
+         <div class="row">
           <ol class="breadcrumb">
             <li><a href="/main">Home</a></li>
             <li class="active">{{ album.title }}</li>
             <li class="active">Page {{ page.idx }}</li>
-            {% if user_owns_album %}
-            <li>          
+            <li> 
+              {% if user_owns_album %}
               <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                   Setting <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" role="menu">
-                  <li><a data-toggle="modal" data-target="#addpage" style="cursor:pointer;"><font style="color:blue">Add Page</font></a></li>
-                  <li><a data-toggle="modal" data-target="#change_layout" style="cursor:pointer;"><font style="color:blue">Change Layout</font></a></li>
+                  <li><a data-toggle="modal" data-target="#addpage" style="cursor:pointer;"><span style="color:blue">Add Page</span></a></li>
+                  <li><a data-toggle="modal" data-target="#change_layout" style="cursor:pointer;"><span style="color:blue">Change Layout</span></a></li>
                   <li class="divider"></li>
-                  <li><a data-toggle="modal" data-target="#removepage"><font style="color:red;cursor:pointer;" >Remove Page</font></a></li>
+                  <li><a data-toggle="modal" data-target="#removepage"><span style="color:red;cursor:pointer;" >Remove Page</span></a></li>
                 </ul>
               </div>
+              {% endif %}
             </li>
             <li>
-              Public: <input type="checkbox" onchange="change_public_state(this);" {% if album.public%}checked{% endif %}>
+              {% if user_owns_album %}
+                {%if album.public%}
+                  Public: <input type="checkbox" onchange="change_public_state(this);" checked>
+                {%else%}
+                  Public: <input type="checkbox" onchange="change_public_state(this);">
+                {%endif%}
+
+              {% endif %}
             </li>
             <li>
+              {% if user_owns_album %}
               Edit mode: <input type="checkbox" onchange="toggle_edit_mode(this);" checked>
+              {% endif %}
             </li>
-            {% endif %}
             <li>
             <!-- Facebook share button -->
             <div class="fb-share-button" data-href="http://127.0.0.1:8000/album/{{ album.album_id }}" data-type="button_count"></div>
@@ -82,74 +98,76 @@
 
         </div>
       <!--upper part end-->
-
-      <div class="content_box">
-      <h1> {{album.title}} </h1>
-      {% if user_owns_album %}  
-      <form class="form-horizontal" role="form" action="/modify/" method="post">
-      {% csrf_token %}
-      
-      <input type="hidden" value="{{ album.album_id }}" name="album_id"/>
-      <input type="hidden" value="change_description" name="action"/>
-      <input type="input" name="description" class="form-control" onchange="this.form.submit()" id="id_description" value="{{album.description}}" placeholder="Type album description here">
-      {% endif %}
-      </form>
-      {% if not user_owns_album %} {{album.description}}  {% endif %}
-    
-      
-      
-    
-      </div>
-      <!--image waterfall here-->
-      <div id="outbox">
-        {% for image in page.images.all %}
-         <div class="content_box" id = "p{{image.idx}}">
-          <img src="{% if image.url != '' %}{{image.url}}{%else%}/static/images/ts.jpg{% endif %}" title="{{image.caption}}" >
-          {% if user_owns_album %}
-          <div class="edit_tools">
-            <form action="/modify/" method="post" id="changepic{{ image.idx }}">
-              {% csrf_token %}
-              <label for="id_url">Url:</label>
-              <input type="input" name="url" id="id_url" value="{{image.url}}" placeholder="Type url here">
-              <input type="hidden" value="{{ image.image_id }}" name="image_id" />
-              <input type="hidden" value="modify_image_url" name="action" />
-              <input type="submit" value="Change" />
-            </form>
-            <form action="/search_flickr" method="post" id="search{{ image.idx }}">
-              {% csrf_token %}
-              <label for="id_terms">Search:</label>
-              <input type="input" name="terms" id="id_terms" placeholder="Search pics from flickr">
-              <input type="hidden" value="{{ image.image_id }}" name="image_id" />
-              <input type="hidden" value="modify_image_url" name="action" />
-              <input type="submit" value="Search" />
-            </form>
-            <form action="/modify/" method="post" id="caption{{ image.idx }}">
-              {% csrf_token %}
-              <label for="caption">Caption:</label>
-              <input type="input" name="caption" id="id_caption" value="{{image.caption}}" placeholder="Type caption here">
-              <input type="hidden" value="{{ image.image_id }}" name="image_id" />
-              <input type="hidden" value="modify_image_caption" name="action" />
-              <input type="submit" value="Change" />
-            </form>
-          </div>
+          <div class="content_box">
+          <h1> {{album.title}} </h1>
+          {% if user_owns_album %}  
+          <form class="form-horizontal" role="form" action="/modify/" method="post">
+          {% csrf_token %}
+          
+          <input type="hidden" value="{{ album.album_id }}" name="album_id"/>
+          <input type="hidden" value="change_description" name="action"/>
+          <input name="description" class="form-control" onchange="this.form.submit()"
+          id="id_description" value="{{ album.description }}" placeholder="Type album description here"/>
           {% endif %}
-         </div>
-         
-        {% endfor %} 
-      </div>
+          </form>
+          {% if not user_owns_album %} {{album.description}}  {% endif %}
+          </div>
+        <!--image waterfall here-->
+        <div id="outbox">
+          {% for image in page.images.all %}
+           <div class="content_box" id = "p{{image.idx}}">
+            {% if image.url != '' %}
+            <img src="{{image.url}}" title="{{image.caption}}" alt="thumbnail" />
+            {%else%}
+            <img src="/static/images/ts.jpg" title="{{image.caption}}" alt="thumbnail" />
+            {% endif %}
+            {% if user_owns_album %}
+            <div class="edit_tools">
+              <form action="/modify/" method="post" id="changepic{{image.idx}}">
+                {% csrf_token %}
+                <label for="id_url">Url:</label>
+                <input name="url" id="id_url" value="{{image.url}}" placeholder="Type url here">
+                <input type="hidden" value="{{ image.image_id }}" name="image_id" />
+                <input type="hidden" value="modify_image_url" name="action" />
+                <input type="submit" value="Change" />
+              </form>
+              <form action="/search_flickr" method="post" id="search{{image.idx}}">
+                {% csrf_token %}
+                <label for="id_terms">Search:</label>
+                <input name="terms" id="id_terms" placeholder="Search pics from flickr">
+                <input type="hidden" value="{{ image.image_id }}" name="image_id" />
+                <input type="hidden" value="modify_image_url" name="action" />
+                <input type="submit" value="Search" />
+              </form>
+              <form action="/modify/" method="post" id="caption{{image.idx}}">
+                {% csrf_token %}
+                <label for="id_caption">Caption:</label>
+                <input name="caption" id="id_caption" value="{{image.caption}}" placeholder="Type caption here">
+                <input type="hidden" value="{{ image.image_id }}" name="image_id" />
+                <input type="hidden" value="modify_image_caption" name="action" />
+                <input type="submit" value="Change" />
+              </form>
+            </div>
+            {% endif %}
+           </div>
+           
+          {% endfor %} 
+        </div>
+    </div>
       <ul class="pager">
-            <li><a style="cursor:pointer;"onclick="prepage()">Previous</a></li>
-            <li><a style="cursor:pointer;"onclick="nextpage()">Next</a></li>
+            <li><a style="cursor:pointer;" onclick="prepage()">Previous</a></li>
+            <li><a style="cursor:pointer;" onclick="nextpage()">Next</a></li>
             <li>
               <label>Page:</label>
               <input type="text" style="background-color:#eee; border: #ccc 1px solid;" size = "3" id="enterpage">
-              <input type="button" onclick="jumppage()" size="2" value="Go">
+              <input type="button" onclick="jumppage()" value="Go">
             </li>
-            <!-- use in js for jump page-->
-            <input type="hidden" id="currentpage" value="{{page.idx}}">
           </ul>
+          <!-- use in js for jump page-->
+            <input type="hidden" id="currentpage" value="{{page.idx}}">
           <!--add pages here -->
-{% if user_owns_album %}
+
+      {% if user_owns_album %}
       <div class="modal fade" id="addpage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -161,7 +179,8 @@
             <form class="form-horizontal" role="form" action="/modify/" method="post">{% csrf_token %}
             <div class="modal-body">
               <br>
-              <font style="font-size:15px;">Please choose the layout of new page:</font> {{ add_page_form.as_p }}
+              <span style="font-size:15px;">Please choose the layout of new page:</span>
+              {{ add_page_form.as_p }}
               <input type="hidden" value="{{ album.album_id }}" name="album_id" />
               <input type="hidden" value="add_page" name="action" />
             </div>
@@ -180,18 +199,16 @@
       
           <!--add pages end -->
           <!--remove pages here-->
-                  <div class="modal fade" id="removepage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal fade" id="removepage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title" id="myModalLabel">Remove current Page</h4>
+              <h4 class="modal-title">Remove current Page</h4>
             </div>
             <form class="form-horizontal" role="form" action="/modify/" method="post">{% csrf_token %}<br>
-              <span class="label label-danger">ATTENTION:</span><font style="font-size:15px;"> You are removing this page now...really want to remove?</font>
+              <span class="label label-danger">ATTENTION:</span><span style="font-size:15px;"> You are removing this page now...really want to remove?</span>
             <div class="modal-body">
-              
-
               {{ remove_page_form.as_p }}
               <input type="hidden" value="{{ album.album_id }}" name="album_id" />
               <input type="hidden" value="{{ page.idx }}" name="idx" />
@@ -216,13 +233,13 @@
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title" id="myModalLabel">Change layout</h4>
+              <h4 class="modal-title">Change layout</h4>
             </div>
 
             <form class="form-horizontal" role="form" action="/modify/" method="post">{% csrf_token %}
             <div class="modal-body">
               <br>
-              <font style="font-size:15px;">Please choose new layout:</font> {{ add_page_form.as_p }}
+              <span style="font-size:15px;">Please choose new layout:</span> {{ add_page_form.as_p }}
               <p>Current layout: {{ page.layout }}.css </p>
               <input type="hidden" value="{{ album.album_id }}" name="album_id" />
               <input type="hidden" value="{{ page.idx }}" name="idx" />
@@ -245,7 +262,7 @@
     <script type="text/javascript" src="/static/js/jquery.min.js"></script>
     <script type="text/javascript" src="/static/js/bootstrap.js"></script>
 
-    <!--jump page -->
+    <!--jump page (because we just used this part js here, so i didn't module it)-->
     <script type="text/javascript">
       function _(x){
         return document.getElementById(x);

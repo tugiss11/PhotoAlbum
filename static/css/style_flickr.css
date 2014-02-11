@@ -16,11 +16,11 @@ input[type="submit"]:hover{
 }
 #outbox{
     -moz-column-count: 5;
-    -moz-column-gap: 5%;
+    -moz-column-gap: 5px;
     -webkit-column-count: 5;
-    -webkit-column-gap: 5%;
+    -webkit-column-gap: 5px;
     column-count: 5;
-    column-gap: 5%;
+    column-gap: 5px;
     width:100%; 
     margin:0 auto;
 }
@@ -32,7 +32,7 @@ input[type="submit"]:hover{
     width:100%;
     display: inline-block;
     font-size:12px;
-    background-image: #FFF;
+    background-color: #FFF;
     border: 1px solid #ccc;
     padding: 10px;
     margin: 5px 5px 5px 0;

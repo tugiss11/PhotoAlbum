@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <title>Memory Album</title>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/css/bootstrap.css" media="screen">
     <link rel="stylesheet" type="text/css" href="/static/css/style_flickr.css" />
@@ -15,8 +16,8 @@
 			<div id="outbox">
 			{% for current in flickr %}
 				<div class="content_box">
-					<img src="{{ current.thumb_url }}" alt="{{ current.title }}">
-				<form action="/modify/" method="post" id="choose_form{{ current.id }}">
+					<img src="{{current.thumb_url}}" alt="flickr images">
+				<form action="/modify/" method="post" id="choose_form{{current.id}}">
 				    {% csrf_token %}
 				    {{ image_url_form.as_p }}
 				    <input type="hidden" value="{{ image_id }}" name="image_id" />

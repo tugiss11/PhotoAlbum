@@ -2,73 +2,86 @@
 <html lang="en">
   <head>
     <title>Memory Album</title>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/css/bootstrap.css" media="screen">
     <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
     <link href="http://fonts.googleapis.com/css?family=Oswald" rel="stylesheet" type="text/css">
-    <style>
-    body {background:#000;}
-    </style>
+    <style>body{background:#000;}</style>
     <script src="/static/js/ajax.js"></script> <!-- the ajax module -->
     <script src="/static/js/main.js"></script> <!-- I made a document.getElementById() module in this file -->
   
-  <!--    here is the ajax part to check if the username is taken or not  -->
+    <!-- here is the ajax part to check if the username is taken or not  -->
     <script type="text/javascript">
       function check(){
         var status = _("status");
-        var u = _("id_username").value;
-        var query = "/query?action=user_name_free&name="+u
-        var ajax = ajaxObj("GET", query);
+        var u = _("pusername").value;
+        if(u != ''){
+            var query = "/query?action=user_name_free&name="+u;
+            var ajax = ajaxObj("GET", query);
             ajax.onreadystatechange = function() {
             if(ajaxReturn(ajax) == true) {
               if(ajax.responseText != 'true'){
-              status.innerHTML = '<font style="color:red">The username is already taken!</font>';
+              status.innerHTML = '<span style="color:red">The username is already taken!</span>';
             } else {
-              status.innerHTML = '<font style="color:green">The username is OK!</font>';
+              status.innerHTML = '<span style="color:green">The username is OK!</span>';
             }
               }
             }
             ajax.send(null);
+        }else{
+          status.innerHTML = '<span style="color:red">The username field is empty!</span>';
+        }
       }
     </script>
   </head>
   <body>
-<div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="myModalLabel">Please Create Account Here</h4>
-      </div>
+    <div class="modal-dialog">
 
-      <div class="modal-body">
-          <form class="form-horizontal" method="post" role="form"> {% csrf_token %}
-            {% for field in form %}
-      <fieldset class="form-group">
-        {% if field.label == "Username"  %}
-          <label class="col-sm-3 control-label" for="id_{{ field.name }}">{{ field.label }}</label>
-            <div class="col-sm-6">
-              <input type="{{field.field.widget.input_type}}" class="form-control"
-                name="{{ field.name }}"
-                id="id_{{ field.name }}" onblur="check()" placeholder="a-z,1-9,@/./+/-/_ only. below 30 chars">
-                <span id = "status"></span>
-           </div>
-       {% else %}
-       <label class="col-sm-3 control-label" for="id_{{ field.name }}">{{ field.label }}</label>
-            <div class="col-sm-6">
-              <input type="{{field.field.widget.input_type}}" class="form-control"
-                name="{{ field.name }}"
-                id="id_{{ field.name }}"> 
-        <p class="help-text">{{ field.help_text }} </p>
-       </div>
-       {% endif %}
-      </fieldset>
-      {% endfor %}
-        <div class="form-group">
-          <div class="col-sm-offset-3 col-sm-6">
-              <input  class="btn btn-success" type="submit" value="Register"/>
-              <button type="reset" class="btn btn-default">Clear</button>
-              <a type="button" class="btn btn-default" href="/login">login</a>
+        <div class="modal-content">
 
+          <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">Please Create Account Here</h4>
+          </div>
+
+          <div class="modal-body">
+              <form class="form-horizontal" method="post" role="form"> {% csrf_token %}
+
+                {% for field in form %}
+
+                <fieldset class="form-group">
+
+                  {% if field.label == "Username"  %}
+
+                    <label class="col-sm-3 control-label" for="p{{field.name}}">{{field.label}}</label>
+                      <div class="col-sm-6">
+                        <input type="text" class="form-control" name="{{field.name}}" id="p{{field.name}}" onblur="check()" placeholder="a-z,1-9,@/./+/-/_ only. below 30 chars">
+                          <span id = "status"></span>
+                     </div>
+
+                 {% else %}
+
+                 <label class="col-sm-3 control-label" for="{{field.name}}">{{field.label}}</label>
+                      <div class="col-sm-6">
+                        <input type="password" class="form-control" id="{{field.name}}" name="{{field.name}}"> 
+                        <p class="help-text">{{ field.help_text }} </p>
+                      </div>
+
+                 {% endif %}
+
+                </fieldset>
+
+                {% endfor %}
+                  <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-6">
+                        <input  class="btn btn-success" type="submit" value="Register"/>
+                        <button type="reset" class="btn btn-default">Clear</button>
+                        <a class="btn btn-default" href="/login">Back Login</a>
+                    </div>
+                </div>
+            </form>
+          </div>
         </div>
-
-      </div>
-</form>
+    </div>
+  </body>
+</html>

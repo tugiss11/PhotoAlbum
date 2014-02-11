@@ -87,11 +87,11 @@ display: inline;
 
 #outbox{
     -moz-column-count: 3;
-    -moz-column-gap: 5%;
+    -moz-column-gap: 5px;
     -webkit-column-count: 3;
-    -webkit-column-gap: 5%;
+    -webkit-column-gap: 5px;
     column-count: 3;
-    column-gap: 5%;
+    column-gap: 5px;
     width:100%; 
     margin:0 auto;
 }
@@ -103,7 +103,7 @@ display: inline;
     width:100%;
     display: inline-block;
     font-size:12px;
-    background-image: #FFF;
+    background-color: white;
     border: 1px solid #ccc;
     padding: 10px;
     margin: 5px 5px 5px 0;
@@ -119,9 +119,13 @@ display: inline;
 .content_box img{
     width: 100%;
 }
+.fieldWrapper{
+    width: 200px;
+}
 
 .fieldWrapper input{
     background-color: white;
     width: 200px;
+    margin-bottom: 5px;
 
 }

@@ -13,7 +13,7 @@ Following features were implemented. We give points for features in brackets. Fe
 - Share albums (70 / 80)
 - Order albums (150 / 200)
 - Integrate with an image service API (80 / 100)
-- Use of Ajax (100 / 100)
+- Use of Ajax (80 / 100)
 
 Not implemented:
 - Third party login
@@ -83,7 +83,12 @@ Liang GUO 397616
     - Made 5 column "multi-column" layout which the page could load more pictures at one time.
 - The Order Album Page
     - Made the order album page and let the user to ensure the information before payment.
-- Other Works about the user interface development.
+- All the template html files and CSS files are validated by W3C except these file:
+    - invalid.html (because Tuukka use extend tag)
+    - logout.html  (the same reason)
+    - newuser.html (the same reason)
+    - bootstrap.css (I did my css with the aid of bootstrap I didn't change it any more, but it could not be validated by W3C)
+
 
 Tuukka Järvinen 79439A
 

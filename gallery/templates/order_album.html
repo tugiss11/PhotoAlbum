@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <title>Ordering Album {{ album.title }}</title>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/css/bootstrap.css" media="screen">
     <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
@@ -11,21 +12,29 @@
      <header class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <a href="/main" class="navbar-brand"><span class="smcq-title"><span style="font-family: Oswald, sans-serif;color:#fff;">Memory </span><span style="font-family: Oswald, sans-serif;color:#6e6;">Album</span></a>
+          <span class="smcq-title navbar-brand">
+            <span style="font-family: Oswald, sans-serif;color:#fff;">Memory </span>
+            <span style="font-family: Oswald, sans-serif;color:#6e6;">Album</span>
+          </span>
         </div>
+          
         <nav class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
-            {% if not user.is_authenticated %}
-            <li>
+            
+          <li>
+              {% if not user.is_authenticated %}
               <button type="button" class="btn btn-default navbar-btn" onclick="location='/login/'">Sign In For More</button>
-            </li>
             {% endif %}
-            {% if user.is_authenticated %}
+          </li>
+            
+            
             <li>
+              {% if user.is_authenticated %}
               <span class="smcq-text">Logged in as <strong>{{ user.username}}</strong></span>
               <button type="button" class="btn btn-default navbar-btn" onclick="location='/logout/'">Logout</button>
-            </li>
             {% endif %}
+            </li>
+            
           </ul>
         </nav>
       </div>
@@ -48,17 +57,17 @@
             {% csrf_token %}
             <div class="fieldWrapper">
                 {{ form.client_name.errors }}
-                <label for="id_client_name">Name:　</label>
+                <span>Name:  </span>
                 {{ form.client_name }}
             </div>
             <div class="fieldWrapper">
                 {{ form.client_address.errors }}
-                <label for="id_client_address">Address:</label>
+                <span>Address:</span>
                 {{ form.client_address }}
             </div>
             <div class="fieldWrapper">
                 {{ form.client_email.errors }}
-                <label for="id_client_email">Email:　</label>
+                <span>Email:  </span>
                 {{ form.client_email }}
             </div>
 

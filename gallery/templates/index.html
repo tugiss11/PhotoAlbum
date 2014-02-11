@@ -2,58 +2,28 @@
 <html lang="en">
   <head>
     <title>Memory Album</title>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/css/bootstrap.css" media="screen">
     <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
     <link href="http://fonts.googleapis.com/css?family=Oswald" rel="stylesheet" type="text/css">
-    <style>
-    body {background:#000;}
-  </style>
+    <!-- just the background of this page is black, so style here -->
+    <style>body {background:#000;}</style>
   </head>
   <body>
+
+
 <div class="smcq-main">
-  <div style="text-align:center;font-size:6.0em;font-family: Oswald, sans-serif;"><span style="color:#fff;">Memory</span><span style="font-family: Oswald, sans-serif;color:#6e6;">Album</span></div>
-  <br><br><br>
-  <p><center><a class="btn btn-default btn-lg" role="button" href="/main" >Explore Right Now</a>
-</div>
-
- <!--  login part-->
-<div class="modal fade" id="Signin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Please Sign In Here</h4>
-      </div>
-
-      <div class="modal-body">
-        <form class="form-horizontal" role="form" method="POST" action="main">{% csrf_token %}
-          <div class="form-group">
-            <label for="username" class="col-sm-3 control-label">Username:</label>
-            <div class="col-sm-6">
-              <input type="text" class="form-control" id="username" placeholder="Enter your username...">
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="password" class="col-sm-3 control-label">Password:</label>
-            <div class="col-sm-6">
-              <input type="password" class="form-control" id="password" placeholder="Enter your password...">
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-offset-3 col-sm-6">
-              <button type="submit" class="btn btn-success" value="login">Login</button>
-              <button type="reset" class="btn btn-default">Clear</button>
-              <button type="button" class="btn btn-danger pull-right">No Account ?</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
+  <!-- just style this div here because it's just used in this part. -->
+  <div style="text-align:center;font-size:6.0em;font-family: Oswald, sans-serif;">
+    <span style="color:#fff;">Memory</span><span style="font-family: Oswald, sans-serif;color:#6e6;">Album</span>
   </div>
+
+  <br><br><br>
+
+  <div style="text-align:center;"><a class="btn btn-default btn-lg" role="button" href="/main" >Explore Right Now</a></div>
+
 </div>
-<!-- /.login end -->
-    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
-    <script type="text/javascript" src="/static/js/bootstrap.js"></script>
+
   </body>
 </html>

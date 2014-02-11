@@ -2,13 +2,12 @@
 <html lang="en">
   <head>
     <title>Confirm ordering of album {{ album.title }}</title>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/css/bootstrap.css" media="screen">
     <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
     <link href="http://fonts.googleapis.com/css?family=Oswald" rel="stylesheet" type="text/css">
-    <style>
-    body {background:#000;}
-  </style>
+    <style>body {background:#000;}</style>
   </head>
   <body>
 
@@ -23,25 +22,25 @@
           <div class="form-group">
             <label for="price" class="col-sm-3 control-label">Price:</label>
             <div class="col-sm-6">
-              <input type="text" value="{{ order.price }} &euro;"  name="price" class="form-control" readonly>
+              <input type="text" value="{{ order.price }} &euro;"  name="price" id="price" class="form-control" readonly>
             </div>
           </div>
           <div class="form-group">
             <label for="name" class="col-sm-3 control-label">Name:</label>
             <div class="col-sm-6">
-              <input type="text" value="{{ order.client_name }}"  name="name" class="form-control" readonly>
+              <input type="text" value="{{ order.client_name }}"  name="name" id="name" class="form-control" readonly>
             </div>
           </div>
           <div class="form-group">
             <label for="address" class="col-sm-3 control-label">Address:</label>
             <div class="col-sm-6">
-              <input type="text" value="{{ order.client_address }}" name="address" class="form-control" readonly>
+              <input type="text" value="{{ order.client_address }}" name="address" id="address" class="form-control" readonly>
             </div>
           </div>
           <div class="form-group">
             <label for="email" class="col-sm-3 control-label">Email:</label>
             <div class="col-sm-6">
-              <input type="text" value="{{ order.client_email }}" name="email" class="form-control" readonly>
+              <input type="text" value="{{ order.client_email }}" name="email" id="email" class="form-control" readonly>
             </div>
           </div>
         </form>
