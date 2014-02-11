@@ -54,12 +54,12 @@
     <div class="container">
       <!--upper part-->
          <div class="row">
+          {% if user_owns_album %}
           <ol class="breadcrumb">
             <li><a href="/main">Home</a></li>
             <li class="active">{{ album.title }}</li>
             <li class="active">Page {{ page.idx }}</li>
             <li> 
-              {% if user_owns_album %}
               <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                   Setting <span class="caret"></span>
@@ -71,22 +71,16 @@
                   <li><a data-toggle="modal" data-target="#removepage"><span style="color:red;cursor:pointer;" >Remove Page</span></a></li>
                 </ul>
               </div>
-              {% endif %}
             </li>
             <li>
-              {% if user_owns_album %}
                 {%if album.public%}
                   Public: <input type="checkbox" onchange="change_public_state(this);" checked>
                 {%else%}
                   Public: <input type="checkbox" onchange="change_public_state(this);">
                 {%endif%}
-
-              {% endif %}
             </li>
             <li>
-              {% if user_owns_album %}
               Edit mode: <input type="checkbox" onchange="toggle_edit_mode(this);" checked>
-              {% endif %}
             </li>
             <li>
             <!-- Facebook share button -->
@@ -95,7 +89,19 @@
             </li>
            
           </ol>
-
+          {%else%}
+          <ol class="breadcrumb">
+            <li><a href="/main">Home</a></li>
+            <li class="active">{{ album.title }}</li>
+            <li class="active">Page {{ page.idx }}</li>
+            <li>
+            <!-- Facebook share button -->
+            <div class="fb-share-button" data-href="http://127.0.0.1:8000/album/{{ album.album_id }}" data-type="button_count"></div>
+            <!-- End Facebook share button -->
+            </li>
+           
+          </ol>
+          {%endif%}
         </div>
       <!--upper part end-->
           <div class="content_box">
