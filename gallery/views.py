@@ -185,14 +185,14 @@ def modify(request):
 
     raise PermissionDenied()
 
-
-def login(request):
+# login page with csrf
+def login(request): 
     c = {}
     c.update(csrf(request))
     return render_to_response('login.html', c, context_instance=RequestContext(request))
 
 
-
+# handles login
 def auth_view(request):
     username = request.POST.get('username','')
     password = request.POST.get('password','')
@@ -213,7 +213,7 @@ def logout(request):
 def invalid_login(request):
     return render_to_response('invalid.html')
 
-
+# handles user creation
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
