@@ -87,7 +87,7 @@ Liang GUO 397616
     - invalid.html (because Tuukka used the "extends" tag)
     - logout.html  (the same reason)
     - newuser.html (the same reason)
-    - bootstrap.css (I did my css with the aid of bootstrap I didn't change it any more, but it could not be validated by W3C)
+    - bootstrap.css (I did my interface design with the aid of bootstrap and I didn't change it at all, but it could not be validated by W3C)
 
 
 Tuukka Järvinen 79439A
