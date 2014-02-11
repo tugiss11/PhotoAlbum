@@ -57,6 +57,8 @@ def albumView(request, album_id, page = 1):
     album = get_object_or_404(Album, album_id = album_id)
     user = auth.get_user(request)
 
+    data["user_owns_album"] = (album.owner == user)
+
     if (not album.public) and album.owner != user:
         return redirect("/main")
 
@@ -77,7 +79,22 @@ def albumView(request, album_id, page = 1):
         pass
     return render_to_response("album_view.html", data, context_instance=RequestContext(request))
 
+def query_view(request):
+    try:
+        q = request.GET
+        print q
+        if q["action"] == "user_name_free":
+            if "name" in q:
+                if User.objects.filter(username = q["name"]).exists():
+                    return HttpResponse("false")
+                else:
+                    return HttpResponse("true")
+
+    except Exception as e:
+        raise PermissionDenied()
+
 @csrf_protect
+# all modification requests are handled here
 def modify(request):
     if not request.user.is_authenticated() or request.method == 'GET':
         raise PermissionDenied()
@@ -168,14 +185,14 @@ def modify(request):
 
     raise PermissionDenied()
 
-
-def login(request):
+# login page with csrf
+def login(request): 
     c = {}
     c.update(csrf(request))
     return render_to_response('login.html', c, context_instance=RequestContext(request))
 
 
-
+# handles login
 def auth_view(request):
     username = request.POST.get('username','')
     password = request.POST.get('password','')
@@ -196,7 +213,7 @@ def logout(request):
 def invalid_login(request):
     return render_to_response('invalid.html')
 
-
+# handles user creation
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)

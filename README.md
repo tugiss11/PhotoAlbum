@@ -3,18 +3,83 @@ group-7-2013
 
 Final Submission
 ----------------
+Memory Album can be found from http://memory-album.herokuapp.com/
+Usage should be pretty straigth-forward and self-explanitary. Not logged in users will see latest public albums in main view. User can log in or create account from top-right button. Logged in users will see buttons for editing albums in top of the page. Tools near albums and images edit corresponding item. When viewing album, logged in users can hide edit tools by unchecking "Edit mode" checkbox from top of the page. Album can be made public by checking "Public" checkbox and shared to Facebook by clicking on Share button. Public album urls can be copied from browser location bar and shared. User can either enter URL where to fetch the images from or search from Flickr.
+
+Following features were implemented. We give points for features in brackets. Features are discussed more in depth by team member who mainly implement them.
+- Authentication (200 / 200)
+- Basic album functionalities (450 / 500)
+- Public link to photo albums (70 / 70)
+- Share albums (70 / 80)
+- Order albums (150 / 200)
+- Integrate with an image service API (80 / 100)
+- Use of Ajax (!!!!! LIANG ADD THIS !!!!!! / 100)
+
+Not implemented:
+- Third party login
+    - We wanted to polish other features and improve reliability
+
 Features By Creator
-
+-------------------
 Joona Heinikoski 79655J
-- Database
+- Backend developer
+- Album functionality (Basic functionality)
+    - All requested features are implemented
+    - All modifications are sent to /modify with a CSRF protected and enforced POST request
+- Database (Basic functionality)
     - Works well and reliably
-    -
-    -
-
+    - Relations between meaningful objects and unique id's (uuid4) to identify everything
+    - Helper functions for creating new Albums and Pages
+    - Reliable deletion (All associated objects are deleted)
+    - Function to fix possible problems in page indexing
+- Album ownership (Authentication)
+    - Only owner can edit their albums
+    - Albums are by default not visible to anyone else, single click to make public
+    - All modifications are owner-checked
+- Public link to photo albums
+    - Album's unique id is used for creating link (example /album/c1bc861f-0dfc-45fd-9560-d6fcc79e8889)
+    - Same link for editing and viewing album
+    - If album is public but current user is not the owner of album, albun can be viewed but not edited
+    - Album page can be part of link
+- Share albums
+    - Users can click one button to share album on Facebook
+    - Default Facebook share button used
+- Order albums
+    - User can click to order album
+    - No choises for different types of books/multiple copies
+    - Basic info from user, name, address, e-mail
+    - After info is provided, order is saved to database and can be paid or cancelled
+    - A view to see all user's orders and pay/cancel non-paid orders
+- Integrate with an image service API
+    - User can search for images from Flickr
+    - Random matching results shown, choose image with one click
+    - Shown Images are from 50000 most relevant images
+    - Simple error page in case of problems (Flickr was down once during development)
+- Making albums public (AJAX)
+    - Checking/Unchecking "Public" checkbox sends AJAX request to change public status of album
+- Edit mode (Dynamic UI)
+    - Album editing tools can be hidden and shown by Checking/Unchecking "Edit mode" checkbox
 
 Liang
+- User interface developer
+- Site design and layout
+- Remove this line when you have read (and improved if necessary) the generic parts at the beginning
 
-Tuukka
+Tuukka Järvinen 79439A
+
+- Authentication
+    - Uses Django auth
+    - Logging in/out and creating accounts works fine
+
+- Album functionality (Basic functionality)
+    - User can write album descriptions
+    - User can set captions for images
+
+- Usability improvements
+    - Language
+    - Navigation
+    - Differences between authenticated and non-authenticated views
+    
 
 
 Planning

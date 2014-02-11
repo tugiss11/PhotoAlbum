@@ -51,7 +51,7 @@
             <li><a href="/main">Home</a></li>
             <li class="active">{{ album.title }}</li>
             <li class="active">Page {{ page.idx }}</li>
-            {% if user.is_authenticated %}
+            {% if user_owns_album %}
             <li>          
               <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -85,7 +85,7 @@
 
       <div class="content_box">
       <h1> {{album.title}} </h1>
-      {% if user.is_authenticated %}  
+      {% if user_owns_album %}  
       <form class="form-horizontal" role="form" action="/modify/" method="post">
       {% csrf_token %}
       
@@ -94,7 +94,7 @@
       <input type="input" name="description" class="form-control" onchange="this.form.submit()" id="id_description" value="{{album.description}}" placeholder="Type album description here">
       {% endif %}
       </form>
-      {% if not user.is_authenticated %} {{album.description}}  {% endif %}
+      {% if not user_owns_album %} {{album.description}}  {% endif %}
     
       
       
@@ -105,7 +105,7 @@
         {% for image in page.images.all %}
          <div class="content_box" id = "p{{image.idx}}">
           <img src="{% if image.url != '' %}{{image.url}}{%else%}/static/images/ts.jpg{% endif %}" title="{{image.caption}}" >
-          {% if user.is_authenticated %}
+          {% if user_owns_album %}
           <div class="edit_tools">
             <form action="/modify/" method="post" id="changepic{{ image.idx }}">
               {% csrf_token %}
@@ -149,7 +149,7 @@
             <input type="hidden" id="currentpage" value="{{page.idx}}">
           </ul>
           <!--add pages here -->
-{% if user.is_authenticated %}
+{% if user_owns_album %}
       <div class="modal fade" id="addpage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
