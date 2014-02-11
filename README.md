@@ -13,7 +13,7 @@ Following features were implemented. We give points for features in brackets. Fe
 - Share albums (70 / 80)
 - Order albums (150 / 200)
 - Integrate with an image service API (80 / 100)
-- Use of Ajax (!!!!! LIANG ADD THIS !!!!!! / 100)
+- Use of Ajax (100 / 100)
 
 Not implemented:
 - Third party login
@@ -60,10 +60,30 @@ Joona Heinikoski 79655J
 - Edit mode (Dynamic UI)
     - Album editing tools can be hidden and shown by Checking/Unchecking "Edit mode" checkbox
 
-Liang
+Liang GUO 397616
 - User interface developer
-- Site design and layout
-- Remove this line when you have read (and improved if necessary) the generic parts at the beginning
+- Index View
+    - Come up with the Name called "MemoryAlbum" and first designed the index page which I wnat to emphesisze the LOGO and give the first strong impression to the visitor.
+- Login and Register View
+    - Check the username is taken or not then give the feedback to the user.(Ajax)
+    - Designed the Login and Register page and focus on the key point, I don't want to bother the visitor in this step, so keep the process as simple as possible.
+- The album list View
+    - Use the new feature of CSS3 "Multi-Column Layout properties" to create multi-column grid layouts with an automatic content spill over feature.
+    - Designed the default "Memory Album" picture using photoshop.
+    - If the album was new created and there was no picture then the thumbnail will be shown as the "Memory Album" default picture automatically. And when the user linked picture then the album thumbnail will change.
+    - Add the "Add Album"/"My order" buttons.
+    - Layout the Album to show the "title","caption","Order" and "Remove", also layout the bottom information bar.
+- The Album Page View
+    - I designed several different kinds of layouts which the user could choose what they like. The new album has the "default layout", other layouts are in different shapes or differnt numbers or shapes.
+    - The page layout Also use the "Multi-Column Layout properties".
+    - Made the bottom jump page bar using javascript which user could visit the next/previous or customize page.
+    - Made the Dropdown Setting button and add the "Add page", "Remove Page" and "Change Layout" button in it.
+    - When the user Remove Page, I made a warning popup page to let the users ensure their action. 
+- The filckr search page View
+    - Made 5 column "multi-column" layout which the page could load more pictures at one time.
+- The Order Album Page
+    - Made the order album page and let the user to ensure the information before payment.
+- Other Works about the user interface development.
 
 Tuukka Järvinen 79439A
 

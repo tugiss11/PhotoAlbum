@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,6 +9,28 @@
     <style>
     body {background:#000;}
     </style>
+    <script src="/static/js/ajax.js"></script> <!-- the ajax module -->
+    <script src="/static/js/main.js"></script> <!-- I made a document.getElementById() module in this file -->
+  
+  <!--    here is the ajax part to check if the username is taken or not  -->
+    <script type="text/javascript">
+      function check(){
+        var status = _("status");
+        var u = _("id_username").value;
+        var query = "/query?action=user_name_free&name="+u
+        var ajax = ajaxObj("GET", query);
+            ajax.onreadystatechange = function() {
+            if(ajaxReturn(ajax) == true) {
+              if(ajax.responseText != 'true'){
+              status.innerHTML = '<font style="color:red">The username is already taken!</font>';
+            } else {
+              status.innerHTML = '<font style="color:green">The username is OK!</font>';
+            }
+              }
+            }
+            ajax.send(null);
+      }
+    </script>
   </head>
   <body>
 <div class="modal-dialog">
@@ -22,13 +43,23 @@
           <form class="form-horizontal" method="post" role="form"> {% csrf_token %}
             {% for field in form %}
       <fieldset class="form-group">
+        {% if field.label == "Username"  %}
           <label class="col-sm-3 control-label" for="id_{{ field.name }}">{{ field.label }}</label>
+            <div class="col-sm-6">
+              <input type="{{field.field.widget.input_type}}" class="form-control"
+                name="{{ field.name }}"
+                id="id_{{ field.name }}" onblur="check()" placeholder="a-z,1-9,@/./+/-/_ only. below 30 chars">
+                <span id = "status"></span>
+           </div>
+       {% else %}
+       <label class="col-sm-3 control-label" for="id_{{ field.name }}">{{ field.label }}</label>
             <div class="col-sm-6">
               <input type="{{field.field.widget.input_type}}" class="form-control"
                 name="{{ field.name }}"
                 id="id_{{ field.name }}"> 
         <p class="help-text">{{ field.help_text }} </p>
        </div>
+       {% endif %}
       </fieldset>
       {% endfor %}
         <div class="form-group">
