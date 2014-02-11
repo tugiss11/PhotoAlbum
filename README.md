@@ -84,7 +84,7 @@ Liang GUO 397616
 - The Order Album Page
     - Made the order album page and let the user to ensure the information before payment.
 - All the template html files and CSS files are validated by W3C except these file:
-    - invalid.html (because Tuukka use extend tag)
+    - invalid.html (because Tuukka used the "extends" tag)
     - logout.html  (the same reason)
     - newuser.html (the same reason)
     - bootstrap.css (I did my css with the aid of bootstrap I didn't change it any more, but it could not be validated by W3C)
