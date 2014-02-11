@@ -1,5 +1,7 @@
 #outbox {
+    column-count: 1;
     -moz-column-count: 1;
+    -webkit-column-count: 1;
 }
 
 #p0 {
